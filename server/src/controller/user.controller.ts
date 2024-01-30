@@ -4,7 +4,7 @@ import { UserModel } from "../modal/User.modal.js";
 import { LogOutRequestBody, LoginRequestBody, RegisterRequestBody, ResponseBody } from "../types.js";
 import jwt from "jsonwebtoken";
 
-export const userRegisterController = async (req: Request<RegisterRequestBody>, res: Response<ResponseBody>) => {
+export async function userRegisterController(req: Request<RegisterRequestBody>, res: Response<ResponseBody>) {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUser = new UserModel({ ...req.body, password: hashedPassword });
@@ -12,32 +12,31 @@ export const userRegisterController = async (req: Request<RegisterRequestBody>, 
         const responseBody: ResponseBody = {
             success: true,
             message: "New user registered successfully"
-        }
+        };
         res.status(201).json(responseBody);
     } catch (error: any) {
         console.log(error.message);
     }
 }
-export const userLoginController = async (req: Request<LoginRequestBody>, res: Response<ResponseBody>) => {
+export async function userLoginController(req: Request<LoginRequestBody>, res: Response<ResponseBody>) {
     try {
-        const user = await UserModel.findOne({ email: req.body.email })
+        const user = await UserModel.findOne({ email: req.body.email });
         if (!user) {
             return res.status(203).json({
                 success: false,
                 message: "User not found"
-            })
+            });
         }
         const hasEqualPassword = await bcrypt.compare(req.body.password, user.password);
         if (!hasEqualPassword) {
             return res.status(203).json({
                 success: false,
                 message: "Invalid password or email address"
-            })
+            });
         }
         const token = jwt.sign({ _id: user._id }, process.env.SECRET_TOKEN || "hjshdfdf5443589ejrer");
         res.cookie("UserAuth", token, {
             httpOnly: true,
-
         }).status(200).json({
             success: true,
             message: user.name + " is login successfully"
@@ -46,7 +45,7 @@ export const userLoginController = async (req: Request<LoginRequestBody>, res: R
         console.log(error.message);
     }
 }
-export const userLogoutController = async (req: Request<LogOutRequestBody>, res: Response<ResponseBody>) => {
+export async function userLogoutController(req: Request<LogOutRequestBody>, res: Response<ResponseBody>) {
     try {
         const { _id } = req.body;
         const user = await UserModel.findById({ _id: _id });
@@ -54,7 +53,7 @@ export const userLogoutController = async (req: Request<LogOutRequestBody>, res:
             return res.status(203).json({
                 success: false,
                 message: "User not found"
-            })
+            });
         }
         res.clearCookie("UserAuth").status(200).json({
             success: true,

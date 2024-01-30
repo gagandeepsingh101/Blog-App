@@ -5,6 +5,11 @@ export interface ResponseBody {
     success: boolean,
     message: string
 }
+export interface ResponseWithDataBody {
+    success: boolean,
+    message: string
+    data: Array<Object> | Object
+}
 export interface RequestBody {
     success: boolean,
     message: string
@@ -22,10 +27,21 @@ export interface LoginRequestBody {
 export interface LogOutRequestBody {
     _id: string,
 }
+
+export interface BlogRequestBody {
+    "title": string,
+    "description": string,
+}
+export interface BlogRequestParams {
+    _id: string,
+}
+
 export interface Blog {
     title: string,
     description: string,
-    authorId: ObjectId
+    authorId: ObjectId,
+    createdAt: Date;
+    updatedAt: Date;
 }
 export interface BlogDocument extends Blog, Document { };
 export interface BlogModelTypes extends Model<BlogDocument> { };
@@ -39,3 +55,5 @@ export interface User {
 
 export interface UserDocument extends User, Document { }
 export interface UserModelTypes extends Model<UserDocument> { }
+
+

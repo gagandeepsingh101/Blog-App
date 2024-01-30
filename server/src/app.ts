@@ -2,11 +2,12 @@ import express from 'express';
 import { userRouter } from './routes/user.routes.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import { blogRouter } from './routes/blog.routes.js';
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/api/user", userRouter);
-app.use("/api/blog", userRouter);
+app.use("/api/users", userRouter);
+app.use("/api/blogs", blogRouter);
 
 export default app;
