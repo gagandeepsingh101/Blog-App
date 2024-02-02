@@ -1,30 +1,33 @@
 import { Model, ObjectId } from "mongoose"
 import { Document } from "mongoose"
 
-export interface ResponseBody {
+export interface UserResponseBody {
     success: boolean,
+    token?: string,
+    data?: {
+        username: string,
+        name: string,
+        email: string
+    }
     message: string
 }
-export interface ResponseWithDataBody {
+export interface BlogResponseBody {
     success: boolean,
-    message: string
-    data: Array<Object> | Object
+    message: string,
+    data?: Array<Object>,
 }
+
 export interface RequestBody {
     success: boolean,
     message: string
 }
-export interface RegisterRequestBody {
-    name: string,
-    username: string,
+export interface UserType {
+    name?: string,
+    username?: string,
     email: string,
-    password: string
+    password?: string
 }
-export interface LoginRequestBody {
-    email: string,
-    password: string
-}
-export interface LogOutRequestBody {
+export interface authProtect {
     _id: string,
 }
 

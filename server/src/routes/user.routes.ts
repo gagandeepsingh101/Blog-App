@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { userRegisterController, userLoginController, userLogoutController } from "../controller/user.controller.js";
+import { userRegisterController, userLoginController, userLogoutController, userDataController } from "../controller/user.controller.js";
 import { authUser } from "../middleware/auth.js";
 
 export const userRouter: Router = Router();
@@ -13,4 +13,5 @@ userRouter.get('/', async (req: Request, res: Response) => {
 });
 userRouter.post('/register', userRegisterController);
 userRouter.post('/login', userLoginController);
-userRouter.get('/logout', authUser,userLogoutController);
+userRouter.get('/logout', authUser, userLogoutController);
+userRouter.get('/userData', authUser, userDataController);

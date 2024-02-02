@@ -2,6 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { useLoginUserMutation } from '../features/auth/authApi';
+import { useSetCookie } from '../utils/useCookieSetter';
 
 const schema = yup.object().shape({
   email: yup.string().email().required().matches(/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}/, {
@@ -21,6 +23,8 @@ type LoginForm = {
 };
 
 const Login = () => {
+  const [loginUser] = useLoginUserMutation();
+  const setCookie = useSetCookie;
   const navigate = useNavigate();
   const {
     register,
@@ -29,10 +33,20 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginForm>({
     resolver: yupResolver(schema),
+    mode: 'all'
   });
-  const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    console.log(data);
-    reset();
+
+  // ...
+
+  const onSubmit: SubmitHandler<LoginForm> = async (userData) => {
+    try {
+      const response = await loginUser(userData);
+      setCookie("UserAuth", response.data.token, 10);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      reset();
+    }
   };
 
   return (
@@ -55,7 +69,7 @@ const Login = () => {
           {...register('email')}
           className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors.email?.message ? 'border-red-500' : 'focus:border-blue-500'}`}
         />
-        <p className='text-red-500  h-16'>{errors.email?.message}</p>
+        <p className='text-red-500  h-16'>{errors.email && errors.email?.message}</p>
         <label htmlFor='password' className='text-lg font-semibold'>
           Password
         </label>
@@ -78,5 +92,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { useRegisterUserMutation } from '../features/auth/authApi';
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -25,6 +26,7 @@ type RegisterForm = {
 };
 
 const Register = () => {
+  const [registerUser, { isError, isLoading, isSuccess, data }] = useRegisterUserMutation();
   const navigate = useNavigate();
   const {
     register,
@@ -34,9 +36,18 @@ const Register = () => {
   } = useForm<RegisterForm>({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<RegisterForm> = (data) => {
-    console.log(data);
-    reset();
+  const onSubmit: SubmitHandler<RegisterForm> = async (userData) => {
+    try {
+      const response = await registerUser(userData);
+
+      console.log(isError, isLoading, isSuccess, data);
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+      reset();
+    }
+
   };
 
   return (

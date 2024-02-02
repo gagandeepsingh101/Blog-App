@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { LogOutRequestBody, ResponseBody } from "../types.js";
+import { UserResponseBody, UserType } from "../types.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
-export async function authUser(req: Request<LogOutRequestBody>, res: Response<ResponseBody>, next: NextFunction) {
+export async function authUser(req: Request<UserType>, res: Response<UserResponseBody>, next: NextFunction) {
     try {
         const UserAuth = req.headers.cookie || req.headers["authorization"];
         const token = UserAuth?.split("=")[1];
