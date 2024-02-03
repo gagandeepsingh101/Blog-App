@@ -1,54 +1,29 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
-import { useLoginUserMutation } from '../features/auth/authApi';
-import { useSetCookie } from '../utils/useCookieSetter';
-
-const schema = yup.object().shape({
-  email: yup.string().email().required().matches(/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}/, {
-    message: "Please write a valid email address"
-  }),
-  password: yup
-    .string()
-    .required()
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/, {
-      message: 'Please write a valid password',
-    })
-});
-
-type LoginForm = {
-  email: string;
-  password: string;
-};
-
+import { useLoginUserMutation, useProfileUserDataQuery } from '../features/auth/authApi';
+import { useLoginUserAction } from '../utils/handleUserAction';
+import { LoginSchema } from '../utils/schema';
+import { UserLoginType } from '../utils/type';
 const Login = () => {
   const [loginUser] = useLoginUserMutation();
-  const setCookie = useSetCookie;
+  const handleLoginSubmit = useLoginUserAction;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data: profileData } = useProfileUserDataQuery("");
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>({
-    resolver: yupResolver(schema),
+  } = useForm<UserLoginType>({
+    resolver: yupResolver(LoginSchema),
     mode: 'all'
   });
-
-  // ...
-
-  const onSubmit: SubmitHandler<LoginForm> = async (userData) => {
-    try {
-      const response = await loginUser(userData);
-      setCookie("UserAuth", response.data.token, 10);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      reset();
-    }
+  const onSubmit: SubmitHandler<UserLoginType> = (userData) => {
+    handleLoginSubmit({ userData, dispatch, loginUser, reset, profileData });
   };
-
   return (
     <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>
       <h1 onClick={() => navigate("/")} className='cursor-pointer w-fit rounded-md text-3xl font-bold text-center bg-black text-white px-3 py-2'>

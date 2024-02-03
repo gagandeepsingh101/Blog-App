@@ -1,25 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-const BASE_URL = "http://localhost:8000/api/users/";
-
-type UserPayload = {
-    username?: string;
-    name?: string;
-    email: string;
-    password: string;
-};
-const commonHeaders = {
-    "Content-Type": "application/json",
-};
-
-const getAuthorizationHeader = () => ({
-    Authorization: document.cookie,
-});
-
+import { APIResponse, UserPayload } from "../../utils/type";
+import { BASE_URL, commonHeaders, getAuthorizationHeader } from "../../utils/constant";
 export const authApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
     endpoints: (builder) => ({
-        registerUser: builder.mutation<object, UserPayload>({
+        registerUser: builder.mutation<APIResponse, UserPayload>({
             query: (data) => ({
                 url: "register",
                 method: "POST",
@@ -27,16 +12,15 @@ export const authApi = createApi({
                 headers: commonHeaders,
             }),
         }),
-        loginUser: builder.mutation<object, UserPayload>({
+        loginUser: builder.mutation<APIResponse, UserPayload>({
             query: (data) => ({
                 url: "login",
                 method: "POST",
                 body: data,
                 headers: commonHeaders,
             }),
-            
         }),
-        profileUserData: builder.query<object, string>({
+        profileUserData: builder.query<APIResponse, string>({
             query: () => ({
                 url: "userData",
                 headers: {
@@ -45,7 +29,7 @@ export const authApi = createApi({
                 },
             }),
         }),
-        logOutUser: builder.query<object, string>({
+        logOutUser: builder.query<APIResponse, string>({
             query: () => ({
                 url: "logout",
                 headers: {

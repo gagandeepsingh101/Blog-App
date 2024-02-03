@@ -1,27 +1,26 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { UserInfoType } from "../../utils/type";
 
-interface UserInfo {
-    name: string,
-    email: string,
-    username: string,
-}
-const initialState: UserInfo = {
+
+
+const initialState: UserInfoType = {
     name: "",
     email: "",
     username: "",
 };
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        addUserInfo: (state: UserInfo, item: PayloadAction<UserInfo>) => {
-            state = item.payload;
+        addUserInfo: (state, action: PayloadAction<UserInfoType>) => {
+            return action.payload;
         },
-        clearUserInfo: () => {
-            return { email: "", username: "", name: "" }
-        }
-    }
+        clearUserInfo: (state) => {
+            return { email: "", username: "", name: "" };
+        },
+    },
 });
 
-export default authSlice;
-export const { addUserInfo, clearUserInfo } = authSlice.actions
+export default authSlice; // Use .reducer to get the reducer function
+export const { addUserInfo, clearUserInfo } = authSlice.actions;

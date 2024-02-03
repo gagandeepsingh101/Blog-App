@@ -1,47 +1,24 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
 import { useRegisterUserMutation } from '../features/auth/authApi';
-
-const schema = yup.object().shape({
-  username: yup.string().required(),
-  name: yup.string().required(),
-  email: yup.string().email().required().matches(/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}/, {
-    message: "Please write a valid email address"
-  }),
-  password: yup
-    .string()
-    .required()
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/, {
-      message: 'Please write a valid password',
-    })
-});
-
-type RegisterForm = {
-  username: string;
-  name: string;
-  email: string;
-  password: string;
-};
-
+import { RegisterSchema } from '../utils/schema';
+import { UserRegistrationType } from '../utils/type';
 const Register = () => {
-  const [registerUser, { isError, isLoading, isSuccess, data }] = useRegisterUserMutation();
+  const [registerUser] = useRegisterUserMutation();
   const navigate = useNavigate();
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterForm>({
-    resolver: yupResolver(schema),
+  } = useForm<UserRegistrationType>({
+    resolver: yupResolver(RegisterSchema),
   });
-  const onSubmit: SubmitHandler<RegisterForm> = async (userData) => {
+  const onSubmit: SubmitHandler<UserRegistrationType> = async (userData) => {
     try {
-      const response = await registerUser(userData);
-
-      console.log(isError, isLoading, isSuccess, data);
-
+      const response = await registerUser(userData).unwrap();
+      console.log(response.message);
     } catch (error) {
       console.log(error);
     } finally {

@@ -6,6 +6,13 @@ import jwt from "jsonwebtoken";
 
 export async function userRegisterController(req: Request<UserType>, res: Response<UserResponseBody>) {
     try {
+        const user = await UserModel.findOne({ email: req.body.email });
+        if (user) {
+            return res.status(203).json({
+                success: false,
+                message: "User already registered"
+            })
+        }
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUser = new UserModel({ ...req.body, password: hashedPassword });
         await newUser.save();
