@@ -13,3 +13,5 @@ export const commonHeaders = {
 export const getAuthorizationHeader = () => ({
     Authorization: document.cookie,
 });
+
+export const UserAuthKey = document.cookie.split(" ")[0].split("=")[1];

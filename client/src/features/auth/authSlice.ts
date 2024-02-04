@@ -13,14 +13,14 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        addUserInfo: (state, action: PayloadAction<UserInfoType>) => {
+        addUserInfo: (_state, action: PayloadAction<UserInfoType>) => {
             return action.payload;
         },
-        clearUserInfo: (state) => {
+        clearUserInfo: () => {
             return { email: "", username: "", name: "" };
         },
     },
 });
 
-export default authSlice; // Use .reducer to get the reducer function
+export default authSlice;
 export const { addUserInfo, clearUserInfo } = authSlice.actions;

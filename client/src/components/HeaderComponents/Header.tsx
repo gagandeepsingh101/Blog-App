@@ -1,10 +1,14 @@
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { CiSearch } from 'react-icons/ci';
+import { useSelector } from 'react-redux';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { UserInfoType } from '../../utils/type';
+import HeaderMenuBox from './HeaderMenuBox';
 
 const Header: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
+  const userInfo = useSelector((state: { auth: UserInfoType }) => state.auth)
   const { register, handleSubmit, reset } = useForm<{ search: string }>();
   const onSubmit: SubmitHandler<{ search: string }> = (data) => {
     console.log(data);
@@ -34,20 +38,35 @@ const Header: React.FC = () => {
         </form>
       </div>
       <div className='w-5/12 h-full flex justify-end gap-4'>
-        <button
-          onClick={() => navigate('/login')}
-          type='button'
-          className='w-2/12 rounded-md text-center hover:bg-violet-100 hover:text-violet-500 hover:underline transition-all duration-300 ease-in-out'
-        >
-          LogIn
-        </button>
-        <button
-          onClick={() => navigate('/register')}
-          type='button'
-          className='w-1/4 rounded-md border text-blue-500 border-blue-500 text-center hover:bg-blue-500 hover:text-white font-bold transition-all duration-300 ease-in-out'
-        >
-          Create Account
-        </button>
+        {
+          document.cookie && userInfo ? <>
+            <button
+            onClick={()=>navigate("/createBlog")}
+              type='button'
+              className='w-1/4 rounded-md border text-blue-500 border-blue-500 text-center hover:bg-blue-500 hover:text-white font-bold transition-all duration-300 ease-in-out'
+            >
+              Create Post
+            </button>
+            <HeaderMenuBox></HeaderMenuBox>
+
+          </> : <>
+            <button
+              onClick={() => navigate('/login')}
+              type='button'
+              className='w-2/12 rounded-md text-center hover:bg-violet-100 hover:text-violet-500 hover:underline transition-all duration-300 ease-in-out'
+            >
+              LogIn
+            </button>
+            <button
+              onClick={() => navigate('/register')}
+              type='button'
+              className='w-1/4 rounded-md border text-blue-500 border-blue-500 text-center hover:bg-blue-500 hover:text-white font-bold transition-all duration-300 ease-in-out'
+            >
+              Create Account
+            </button>
+
+          </>
+        }
       </div>
     </div>
   );

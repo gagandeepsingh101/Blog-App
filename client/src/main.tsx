@@ -8,7 +8,8 @@ import Home from './pages/Home.tsx'
 import Login from './pages/Login.tsx'
 import Register from './pages/Register.tsx'
 import store from './store/store.ts'
-import Profile from './pages/profile.tsx'
+import Profile from './pages/Profile.tsx'
+import CreateBlog from './pages/CreateBlog.tsx'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/createBlog',
+    element: <CreateBlog />,
   }
 
 ])

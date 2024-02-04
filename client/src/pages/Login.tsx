@@ -21,8 +21,9 @@ const Login = () => {
     resolver: yupResolver(LoginSchema),
     mode: 'all'
   });
-  const onSubmit: SubmitHandler<UserLoginType> = (userData) => {
-    handleLoginSubmit({ userData, dispatch, loginUser, reset, profileData });
+  const onSubmit: SubmitHandler<UserLoginType> = async (userData) => {
+    await handleLoginSubmit({ userData, dispatch, loginUser, reset, profileData });
+    navigate("/");
   };
   return (
     <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>
