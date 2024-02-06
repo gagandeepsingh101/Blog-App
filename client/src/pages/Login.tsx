@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLoginUserMutation, useProfileUserDataQuery } from '../features/auth/authApi';
+import { useLoginUserMutation, useProfileUserDataQuery } from '../services/authApi';
 import { useLoginUserAction } from '../utils/handleUserAction';
 import { LoginSchema } from '../utils/schema';
 import { UserLoginType } from '../utils/type';

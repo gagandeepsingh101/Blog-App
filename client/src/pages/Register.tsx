@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useRegisterUserMutation } from '../features/auth/authApi';
+import { useRegisterUserMutation } from '../services/authApi';
 import { RegisterSchema } from '../utils/schema';
 import { UserRegistrationType } from '../utils/type';
 const Register = () => {

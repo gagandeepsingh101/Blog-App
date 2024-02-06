@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from './components/HeaderComponents/Header'
 import { useDispatch } from 'react-redux'
-import { useProfileUserDataQuery } from './features/auth/authApi'
+import { useProfileUserDataQuery } from './services/authApi'
 import { addUserInfo } from './features/auth/authSlice'
 // type Props = {}
 

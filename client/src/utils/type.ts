@@ -52,3 +52,9 @@ export type loginUserActionType = {
     profileData: APIResponse | undefined;
 };
 
+export type NewBlogType = {
+    title: string,
+    image: [File] | File | string,
+    description: string,
+    previewImage: string
+}
