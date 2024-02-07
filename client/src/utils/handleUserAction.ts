@@ -1,4 +1,4 @@
-import { addUserInfo } from "../features/auth/authSlice";
+import { addUserInfo } from "../features/authSlice";
 import { loginUserActionType } from "./type";
 import { useSetCookie } from "./useCookieSetter";
 const setCookie = useSetCookie;

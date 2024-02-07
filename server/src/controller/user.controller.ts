@@ -87,6 +87,7 @@ export async function userDataController(req: Request<UserType>, res: Response<U
         res.status(200).json({
             success: true,
             data: {
+                id: user._id,
                 name: user.name,
                 email: user.email,
                 username: user.username

@@ -12,6 +12,10 @@ const BlogSchema = new mongoose.Schema<BlogDocument, BlogModelTypes>({
         type: "string",
         required: [true, "Please provide a description"]
     },
+    image: {
+        type: "string",
+        required: [true, "Please provide a blog image"]
+    },
     authorId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: UserModel

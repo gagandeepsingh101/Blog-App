@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import { FaBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { clearUserInfo } from '../../features/authSlice';
+import { UserAuthKey } from '../../utils/constant';
 import { UserInfoType } from '../../utils/type';
 import { useSetCookie } from '../../utils/useCookieSetter';
-import { UserAuthKey } from '../../utils/constant';
-import { clearUserInfo } from '../../features/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
-import { FaBookmark } from "react-icons/fa";
 
 
 const HeaderMenuBox = () => {
@@ -16,12 +16,11 @@ const HeaderMenuBox = () => {
     const setCookie = useSetCookie;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { name, username, email } = useSelector((state: { auth: UserInfoType }) => state.auth)
-    console.log(name, username, email);
+    const { name, username } = useSelector((state: { auth: UserInfoType }) => state.auth)
     return (
         <>
             <div className='w-10 h-full relative flex items-center justify-center text-blue-500 cursor-pointer'>
-            <FaBookmark className='h-2/3 w-1/2' /> <sup className='font-bold absolute -top-2 text-lg -right-1'>0</sup>
+                <FaBookmark className='h-2/3 w-1/2' /> <sup className='font-bold absolute -top-2 text-lg -right-1'>0</sup>
             </div>
             <button onClick={toggleMenu}
                 className='w-12 rounded-full text-blue-500 text-center hover:ring-1 hover:ring-blue-500 transition-all duration-300 ease-in-out'

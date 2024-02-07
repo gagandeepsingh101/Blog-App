@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Header from './components/HeaderComponents/Header'
 import { useDispatch } from 'react-redux'
 import { useProfileUserDataQuery } from './services/authApi'
-import { addUserInfo } from './features/auth/authSlice'
+import { addUserInfo } from './features/authSlice'
 // type Props = {}
 
 const App: React.FC = () => {

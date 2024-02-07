@@ -19,6 +19,7 @@ export type APIResponse = {
     message: string;
     token?: string
     data?: {
+        id: string;
         username: string;
         name: string;
         email: string;
@@ -32,6 +33,7 @@ export type UserPayload = {
     password: string;
 };
 export interface UserInfoType {
+    id:string;
     name: string;
     email: string;
     username: string;
@@ -54,7 +56,7 @@ export type loginUserActionType = {
 
 export type NewBlogType = {
     title: string,
-    image: [File] | File | string,
+    image: File | string,
     description: string,
-    previewImage: string
+    previewImage?: string
 }

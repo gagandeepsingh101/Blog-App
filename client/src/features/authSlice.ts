@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { UserInfoType } from "../../utils/type";
+import { UserInfoType } from "../utils/type";
 
 
 
 const initialState: UserInfoType = {
+    id: "",
     name: "",
     email: "",
     username: "",
@@ -17,7 +18,7 @@ const authSlice = createSlice({
             return action.payload;
         },
         clearUserInfo: () => {
-            return { email: "", username: "", name: "" };
+            return { id: "", email: "", username: "", name: "" };
         },
     },
 });

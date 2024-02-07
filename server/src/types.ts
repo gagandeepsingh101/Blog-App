@@ -5,6 +5,7 @@ export interface UserResponseBody {
     success: boolean,
     token?: string,
     data?: {
+        id: ObjectId
         username: string,
         name: string,
         email: string
@@ -34,6 +35,7 @@ export interface authProtect {
 export interface BlogRequestBody {
     "title": string,
     "description": string,
+    "image": string
 }
 export interface BlogRequestParams {
     _id: string,
@@ -42,6 +44,7 @@ export interface BlogRequestParams {
 export interface Blog {
     title: string,
     description: string,
+    image: string,
     authorId: ObjectId,
     createdAt: Date;
     updatedAt: Date;
