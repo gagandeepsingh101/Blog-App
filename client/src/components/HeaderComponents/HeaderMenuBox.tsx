@@ -16,32 +16,33 @@ const HeaderMenuBox = () => {
     const setCookie = useSetCookie;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { name, username } = useSelector((state: { auth: UserInfoType }) => state.auth)
+    const { image } = useSelector((state: { auth: UserInfoType }) => state.auth)
     return (
         <>
             <div className='w-10 h-full relative flex items-center justify-center text-blue-500 cursor-pointer'>
                 <FaBookmark className='h-2/3 w-1/2' /> <sup className='font-bold absolute -top-2 text-lg -right-1'>0</sup>
             </div>
             <button onClick={toggleMenu}
-                className='w-12 rounded-full text-blue-500 text-center hover:ring-1 hover:ring-blue-500 transition-all duration-300 ease-in-out'
-
-            ></button>
+                className='w-12 h-fit rounded-full p-1 text-blue-500 text-center hover:ring-2 hover:ring-blue-500 transition-all duration-300 ease-in-out'
+            >
+                <img src={image} className='rounded-full ' alt="" />
+            </button>
             {isOpen && (
                 <div
-                    className=' bg-white absolute top-[70px] right-16 border-2 shadow-md flex flex-col justify-evenly rounded-md w-1/6 h-1/3 z-50 p-2'
+                    className=' bg-white absolute top-[70px] right-16 border-2 shadow-md flex flex-col justify-evenly rounded-md w-1/6 h-64 z-50 p-2'
                 >
                     <p onClick={() => {
                         navigate("/profile")
                         toggleMenu();
                     }} className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex flex-col  py-2 text-md rounded-md px-5'>
-                        <span className='w-full h-1/2 font-bold'>{name}</span>
-                        <span className='w-full h-1/2'>@{username}</span>
+                        <span className='w-full h-1/2 font-bold'>Profile</span>
                     </p>
                     <p className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex items-center text-md rounded-md px-5'>BookMark</p>
                     <p onClick={() => {
                         dispatch(clearUserInfo());
                         setCookie("UserAuth", UserAuthKey, 0);
                         navigate("/");
+                        window.location.reload();
                     }}
                         className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex items-center text-md rounded-md px-5'>Sign Out</p>
                 </div>

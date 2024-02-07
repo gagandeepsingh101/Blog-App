@@ -4,9 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '../services/authApi';
 import { RegisterSchema } from '../utils/schema';
 import { UserRegistrationType } from '../utils/type';
+import { useState } from 'react';
+import { useUploadImageCloudinary } from '../utils/useUploadImageCloudinary';
+
 const Register = () => {
+  const uploadImageCloudinary = useUploadImageCloudinary;
   const [registerUser] = useRegisterUserMutation();
+  const [image, setImage] = useState<File | string>("");
   const navigate = useNavigate();
+
   const {
     register,
     reset,
@@ -15,16 +21,23 @@ const Register = () => {
   } = useForm<UserRegistrationType>({
     resolver: yupResolver(RegisterSchema),
   });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setImage(file || "");
+  };
+
   const onSubmit: SubmitHandler<UserRegistrationType> = async (userData) => {
     try {
-      const response = await registerUser(userData).unwrap();
+      const imageUrl = await uploadImageCloudinary(image);
+      const response = await registerUser({ ...userData, image: imageUrl }).unwrap();
       console.log(response.message);
     } catch (error) {
       console.log(error);
     } finally {
+      setImage("");
       reset();
     }
-
   };
 
   return (
@@ -35,43 +48,37 @@ const Register = () => {
       <h3 className='w-fit text-2xl font-bold hover:underline'>
         Register to Lol Blog App
       </h3>
-      <form
-        action=''
-        onSubmit={handleSubmit(onSubmit)}
-        className='w-[18%] mx-auto h-[75%] flex flex-col '
-      >
-        <label htmlFor='username' className='text-lg font-semibold'>
-          Username
-        </label>
-        <input
-          {...register('username')}
-          className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors.username?.message ? 'border-red-500' : 'focus:border-blue-500'}`}
-        />
-        <p className='text-red-500  h-16'>{errors.username?.message}</p>
-        <label htmlFor='name' className='text-lg font-semibold'>
-          Name
-        </label>
-        <input
-          {...register('name')}
-          className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors.name?.message ? 'border-red-500' : 'focus:border-blue-500'}`}
-        />
-        <p className='text-red-500  h-16'>{errors.name?.message}</p>
-        <label htmlFor='email' className='text-lg font-semibold'>
-          Email
-        </label>
-        <input
-          {...register('email')}
-          className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors.email?.message ? 'border-red-500' : 'focus:border-blue-500'}`}
-        />
-        <p className='text-red-500  h-16'>{errors.email?.message}</p>
-        <label htmlFor='password' className='text-lg font-semibold'>
-          Password
-        </label>
-        <input
-          {...register('password')}
-          className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors.password?.message ? 'border-red-500' : 'focus:border-blue-500'}`}
-        />
-        <p className='text-red-500  h-16'>{errors.password?.message}</p>
+      <form onSubmit={handleSubmit(onSubmit)} className='w-[18%] mx-auto h-[75%] flex flex-col'>
+        <div className="flex justify-between items-center">
+          <input
+            id="image"
+            type='file'
+            onChange={handleImageChange}
+            className='hidden'
+          />
+          <button
+            type="button"
+            className="w-fit px-3 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none"
+            onClick={() => document.getElementById("image")?.click()}
+          >
+            Browse
+          </button>
+          <p>{image instanceof File && image.name}</p>
+        </div>
+        {['name', 'email', 'password'].map((field) => (
+          <div key={field}>
+            <label htmlFor={field} className='text-lg font-semibold'>
+              {field.charAt(0).toUpperCase() + field.slice(1)}
+            </label>
+            <input
+              {...register(field)}
+              className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${
+                errors[field]?.message ? 'border-red-500' : 'focus:border-blue-500'
+              }`}
+            />
+            <p className='text-red-500 h-16'>{errors[field]?.message}</p>
+          </div>
+        ))}
         <button
           type='submit'
           className='my-4 text-lg font-bold text-blue-500 border border-blue-500 py-2 rounded-md w-fit px-5 mx-auto hover:bg-blue-500 hover:text-white'

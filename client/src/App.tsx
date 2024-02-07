@@ -1,20 +1,30 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import Header from './components/HeaderComponents/Header'
-import { useDispatch } from 'react-redux'
-import { useProfileUserDataQuery } from './services/authApi'
 import { addUserInfo } from './features/authSlice'
+import { useProfileUserDataQuery } from './services/authApi'
+import { useFormatDate } from './utils/useFormatDate'
+import { useGetAllBlogQuery } from './services/blogApi'
+import { addBlogData } from './features/blogSlice'
 // type Props = {}
 
 const App: React.FC = () => {
-  const { data: userData, isSuccess } = useProfileUserDataQuery("");
-  const dispatch = useDispatch();
 
+  const formatDate = useFormatDate
+  const { data: userData, isSuccess: isSuccessUser } = useProfileUserDataQuery("");
+  const { data: blogData, isSuccess: isSuccessBlog } = useGetAllBlogQuery("")
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (isSuccess && userData && userData.data) {
-      dispatch(addUserInfo(userData.data))
+    if (isSuccessUser && userData && userData.data) {
+      const joinedDate: string = formatDate((userData.data.joinedDate));
+
+      dispatch(addUserInfo({ ...userData.data, joinedDate }))
     }
-  }, [dispatch, isSuccess, userData])
+    if (isSuccessBlog && blogData && blogData.data) {
+      dispatch(addBlogData(blogData.data))
+    }
+  }, [blogData, dispatch, formatDate, isSuccessBlog, isSuccessUser, userData])
   return (
     <div className='h-screen w-screen bg-slate-100 overflow-x-hidden overflow-y-scroll '>
       <Header />

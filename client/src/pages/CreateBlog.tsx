@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { CgClose } from 'react-icons/cg';
+import { useSelector } from 'react-redux';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import BlogForm from '../components/BlogForm';
-import { NewBlogType } from '../utils/type';
-import { useUploadImageCloudinary } from '../utils/useUploadImageCloudinary';
 import { useCreateNewBlogMutation } from '../services/blogApi';
+import { NewBlogType, UserInfoType } from '../utils/type';
+import { useUploadImageCloudinary } from '../utils/useUploadImageCloudinary';
 
 const CreateBlog = () => {
+    const userInfo = useSelector((state: { auth: UserInfoType }) => state.auth)
     const [createNewBlog] = useCreateNewBlogMutation();
     const uploadImageClouding = useUploadImageCloudinary;
     const [newBlog, setNewBlog] = useState<NewBlogType>({
@@ -18,11 +20,14 @@ const CreateBlog = () => {
     });
     const navigate: NavigateFunction = useNavigate();
     const onSubmit: SubmitHandler<NewBlogType> = async () => {
-        console.log(newBlog);
         const imageUrl = await uploadImageClouding(newBlog.image);
-        console.log(imageUrl)
-        const response = await createNewBlog({ title: newBlog.title, description: newBlog.description, image: imageUrl }).unwrap();
-        console.log(response);
+        const response = await createNewBlog({ title: newBlog.title, description: newBlog.description, image: imageUrl, authorName: userInfo.name, authorEmail: userInfo.email }).unwrap();
+        setNewBlog({
+            title: "",
+            description: "",
+            image: "",
+            previewImage: "",
+        })
     };
 
     return (

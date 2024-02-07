@@ -4,7 +4,6 @@ import { UseFormReset } from "react-hook-form";
 
 
 export type UserRegistrationType = {
-    username: string;
     name: string;
     email: string;
     password: string;
@@ -19,24 +18,26 @@ export type APIResponse = {
     message: string;
     token?: string
     data?: {
+        joinedDate: string | Date;
         id: string;
-        username: string;
+        image: string;
         name: string;
         email: string;
     };
 };
 
 export type UserPayload = {
-    username?: string;
+    image?: string;
     name?: string;
     email: string;
     password: string;
 };
 export interface UserInfoType {
-    id:string;
+    id: string;
     name: string;
     email: string;
-    username: string;
+    image: string;
+    joinedDate: string | Date;
 }
 
 export type loginUserActionType = {
@@ -54,9 +55,30 @@ export type loginUserActionType = {
     profileData: APIResponse | undefined;
 };
 
+
 export type NewBlogType = {
     title: string,
     image: File | string,
     description: string,
     previewImage?: string
+    authorName?: string
+    authorEmail?: string
 }
+export type BlogAPIData = {
+    authorEmail: string,
+    authorId: string,
+    authorName: string,
+    createdAt: string,
+    description: string,
+    image: string,
+    title: string,
+    updatedAt: string,
+    _id: string
+};
+
+export type BlogAPIResponse = {
+    success: boolean;
+    message: string;
+    token?: string
+    data?: BlogAPIData[]
+};

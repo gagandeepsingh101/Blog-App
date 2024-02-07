@@ -19,6 +19,15 @@ const BlogSchema = new mongoose.Schema<BlogDocument, BlogModelTypes>({
     authorId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: UserModel
+    },
+    authorName: {
+        type: "string",
+        required: [true, "Please provide a author name"]
+    },
+    authorEmail: {
+        type: "string",
+        required: [true, "Please provide a author email address"]
+
     }
 }, { timestamps: true })
 

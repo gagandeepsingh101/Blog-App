@@ -15,7 +15,6 @@ export const LoginSchema = yup.object().shape({
 });
 
 export const RegisterSchema = yup.object().shape({
-    username: yup.string().required(),
     name: yup.string().required(),
     email: yup.string().email().required().matches(emailValidate, {
         message: "Please write a valid email address"

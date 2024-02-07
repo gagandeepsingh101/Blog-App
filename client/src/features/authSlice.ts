@@ -7,7 +7,8 @@ const initialState: UserInfoType = {
     id: "",
     name: "",
     email: "",
-    username: "",
+    image: "",
+    joinedDate: "",
 };
 
 const authSlice = createSlice({
@@ -18,7 +19,7 @@ const authSlice = createSlice({
             return action.payload;
         },
         clearUserInfo: () => {
-            return { id: "", email: "", username: "", name: "" };
+            return { id: "", email: "", image: "", name: "", joinedDate: "" };
         },
     },
 });

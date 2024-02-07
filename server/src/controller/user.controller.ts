@@ -90,7 +90,8 @@ export async function userDataController(req: Request<UserType>, res: Response<U
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                username: user.username
+                image: user.image,
+                joinedDate:user.createdAt
             },
             message: "fetched user info successfully"
         });

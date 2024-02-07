@@ -6,9 +6,10 @@ export interface UserResponseBody {
     token?: string,
     data?: {
         id: ObjectId
-        username: string,
+        image: string,
         name: string,
         email: string
+        joinedDate: Date
     }
     message: string
 }
@@ -24,7 +25,7 @@ export interface RequestBody {
 }
 export interface UserType {
     name?: string,
-    username?: string,
+    image?: string,
     email: string,
     password?: string
 }
@@ -46,6 +47,8 @@ export interface Blog {
     description: string,
     image: string,
     authorId: ObjectId,
+    authorName: string
+    authorEmail: string
     createdAt: Date;
     updatedAt: Date;
 }
@@ -54,9 +57,11 @@ export interface BlogModelTypes extends Model<BlogDocument> { };
 
 export interface User {
     name: string;
-    username: string;
+    image: string;
     email: string;
     password: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface UserDocument extends User, Document { }

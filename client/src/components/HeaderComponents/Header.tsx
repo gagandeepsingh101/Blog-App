@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className='w-full h-[8%] bg-white shadow-md flex justify-evenly items-center px-5 py-2 gap-4'>
+    <div className='w-full h-[8%] bg-white shadow-md sticky top-0 left-0 flex justify-evenly items-center px-5 py-2 gap-4'>
       <div className='w-5/12 h-full flex gap-4 '>
         <p className='uppercase bg-black text-white text-xl px-3 py-2 h-fit w-fit font-bold rounded-lg transition-all duration-300 ease-in-out'>
           lol

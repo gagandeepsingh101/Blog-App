@@ -1,14 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 import { UserDocument, UserModelTypes } from "../types.js";
 
-const UserSchema= new mongoose.Schema<UserDocument, UserModelTypes>({
+const UserSchema = new mongoose.Schema<UserDocument, UserModelTypes>({
     name: {
         type: String,
         required: [true, "Please provide an actual name"],
     },
-    username: {
+    image: {
         type: String,
-        required: [true, "Please provide a username"],
+        required: [true, "Please provide a user profile image"],
         unique: true,
     },
     email: {
@@ -20,7 +20,7 @@ const UserSchema= new mongoose.Schema<UserDocument, UserModelTypes>({
         type: String,
         required: [true, "Please provide a password"],
     },
-});
+}, { timestamps: true });
 
 export const UserModel = mongoose.model<UserDocument, UserModelTypes>('UserModel', UserSchema);
 export const connect = mongoose.connect;
