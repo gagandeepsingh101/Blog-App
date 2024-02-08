@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clearUserInfo } from '../../features/authSlice';
 import { UserAuthKey } from '../../utils/constant';
-import { UserInfoType } from '../../utils/type';
+import { BlogAPIData, UserInfoType } from '../../utils/type';
 import { useSetCookie } from '../../utils/useCookieSetter';
 
 
 const HeaderMenuBox = () => {
+    const bookMarkData = useSelector((state: { bookmarks: { bookmarksBlog: BlogAPIData[] | [] } }) => state.bookmarks).bookmarksBlog;
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -20,7 +21,7 @@ const HeaderMenuBox = () => {
     return (
         <>
             <div className='w-10 h-full relative flex items-center justify-center text-blue-500 cursor-pointer'>
-                <FaBookmark className='h-2/3 w-1/2' /> <sup className='font-bold absolute -top-2 text-lg -right-1'>0</sup>
+                <FaBookmark className='h-2/3 w-1/2' /> <sup className='font-bold absolute -top-2 text-lg -right-1'>{bookMarkData.length}</sup>
             </div>
             <button onClick={toggleMenu}
                 className='w-12 h-fit rounded-full p-1 text-blue-500 text-center hover:ring-2 hover:ring-blue-500 transition-all duration-300 ease-in-out'

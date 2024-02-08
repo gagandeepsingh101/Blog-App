@@ -17,7 +17,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (isSuccessUser && userData && userData.data) {
-      const joinedDate: string = formatDate((userData.data.joinedDate));
+      const joinedDate: string = formatDate((userData.data.joinedDate).toString());
 
       dispatch(addUserInfo({ ...userData.data, joinedDate }))
     }

@@ -21,7 +21,7 @@ const CreateBlog = () => {
     const navigate: NavigateFunction = useNavigate();
     const onSubmit: SubmitHandler<NewBlogType> = async () => {
         const imageUrl = await uploadImageClouding(newBlog.image);
-        const response = await createNewBlog({ title: newBlog.title, description: newBlog.description, image: imageUrl, authorName: userInfo.name, authorEmail: userInfo.email }).unwrap();
+        await createNewBlog({ title: newBlog.title, description: newBlog.description, image: imageUrl, authorName: userInfo.name, authorEmail: userInfo.email }).unwrap();
         setNewBlog({
             title: "",
             description: "",

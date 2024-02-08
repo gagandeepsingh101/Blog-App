@@ -9,7 +9,7 @@ export const blogApi = createApi({
             query: (data) => ({
                 url: "createBlog",
                 method: "POST",
-                body: data,
+                body: { ...data, createdAt: Date.now(), updatedAt: Date.now() },
                 headers: {
                     ...commonHeaders,
                     ...getAuthorizationHeader(),
@@ -23,13 +23,17 @@ export const blogApi = createApi({
         getUserSpecificBlogs: builder.query<BlogAPIResponse, string>({
             query: (params) => "getBlogs/specificUser/" + params,
         }),
+        getSpecificBlog: builder.query<BlogAPIResponse, string>({
+            query: (params) => "getBlog/specificBlog/" + params
+        }),
     }),
 });
 
 export const {
     useCreateNewBlogMutation,
     useGetAllBlogQuery,
-    useGetUserSpecificBlogsQuery
+    useGetUserSpecificBlogsQuery,
+    useGetSpecificBlogQuery
 } = blogApi;
 
 

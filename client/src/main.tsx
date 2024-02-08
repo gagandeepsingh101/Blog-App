@@ -10,6 +10,7 @@ import Register from './pages/Register.tsx'
 import store from './store/store.ts'
 import Profile from './pages/Profile.tsx'
 import CreateBlog from './pages/CreateBlog.tsx'
+import SingleBlog from './pages/SingleBlog.tsx'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/profile', element: <Profile /> }
+      { path: '/profile', element: <Profile /> },
+      { path: '/blog/:id', element: <SingleBlog /> }
     ],
   },
   {
