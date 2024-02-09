@@ -1,9 +1,8 @@
-// Home.tsx
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { BlogAPIData } from '../utils/type';
 import { useFormatDate } from '../utils/useFormatDate';
-import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -20,10 +19,10 @@ const Home: React.FC = () => {
     const hasBlogData = Array.isArray(blogData) && blogData.length > 0;
 
     return (
-        <div className='h-[92%] w-full flex flex-col gap-10 py-4 '>
+        <div className='w-full h-[92%] overflow-y-scroll py-2'>
             {!hasBlogData && <p>No Blog Preview</p>}
             {hasBlogData && blogData.map((blog: BlogAPIData) => (
-                <div onClick={() => navigate("/blog/" + blog._id)} key={getKey(blog)} className='w-8/12 mx-auto h-[25%] overflow-hidden flex items-center justify-evenly cursor-pointer bg-white p-2 rounded-xl hover:bg-blue-100 hover:ring-2 hover:ring-blue-500'>
+                <div onClick={() => navigate("/blog/" + blog._id)} key={getKey(blog)} className='w-8/12 my-4 mx-auto h-[25%] overflow-hidden flex items-center justify-evenly cursor-pointer bg-white p-2 rounded-xl hover:bg-blue-100 hover:ring-2 hover:ring-blue-500'>
                     <img src={blog.image} className='w-2/12 h-full py-3' alt="" />
                     <div className='w-8/12 h-full flex flex-col justify-between py-2'>
                         <h1 className='text-2xl font-bold'>{blog.title}</h1>

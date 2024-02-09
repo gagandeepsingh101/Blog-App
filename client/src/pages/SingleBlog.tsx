@@ -1,19 +1,23 @@
 import React from 'react';
 import { BiBookmark, BiEdit } from 'react-icons/bi';
 import { CgClose } from 'react-icons/cg';
-import { useParams } from 'react-router-dom';
-import { useGetSpecificBlogQuery } from '../services/blogApi';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDeleteBlogMutation, useGetSpecificBlogQuery } from '../services/blogApi';
 import { BlogAPIData, BlogAPIResponse, UserInfoType } from '../utils/type';
 import { useFormatDate } from '../utils/useFormatDate';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBookMarkBlogs } from '../features/bookmarkSlice';
+import { useRemoveImageFromCloud } from '../utils/handleCloudinaryAction';
 
 const SingleBlog: React.FC = () => {
+    const deleteImage = useRemoveImageFromCloud
     const dispatch = useDispatch();
     const { id } = useParams<{ id: string }>();
     const { id: userId } = useSelector((state: { auth: UserInfoType }) => state.auth);
     const formatDate = useFormatDate;
     const { data: apiResponse, isLoading, isError } = useGetSpecificBlogQuery(id as string);
+    const [deleteBlog] = useDeleteBlogMutation();
+    const navigate = useNavigate();
 
     if (!id || isLoading || isError || !apiResponse) {
         return null;
@@ -22,7 +26,7 @@ const SingleBlog: React.FC = () => {
     const [blogData] = data as BlogAPIData[];
 
     return (
-        <div className='w-full h-full flex flex-col justify-center items-center py-20 gap-5'>
+        <div className='w-full h-full flex flex-col justify-center items-center py-20 gap-5 overflow-y-scroll'>
             <div className=' flex w-11/12 mx-auto h-[10%]'>
                 <h1 className='text-4xl font-bold w-11/12 h-full'>{blogData.title}</h1>
                 <div className='w-1/12 flex justify-evenly'>
@@ -30,7 +34,13 @@ const SingleBlog: React.FC = () => {
                         (userId !== blogData.authorId) ? <BiBookmark onClick={() => dispatch(addBookMarkBlogs(blogData))} className="text-3xl text-green-300 hover:text-green-600 cursor-pointer" />
                             : <>
                                 <BiEdit className="text-3xl text-blue-300 hover:text-blue-600 cursor-pointer" />
-                                <CgClose className="text-3xl text-red-300 hover:text-red-600 cursor-pointer" />
+                                <CgClose onClick={async (e) => {
+                                    e.preventDefault();
+                                    await deleteImage(blogData.image)
+                                    await deleteBlog(blogData._id)
+                                    navigate("/");
+                                    document.location.reload();
+                                }} className="text-3xl text-red-300 hover:text-red-600 cursor-pointer" />
                             </>
                     }
                 </div>

@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { APIResponse, UserPayload } from "../utils/type";
 import { BASE_URL, commonHeaders, getAuthorizationHeader } from "../utils/constant";
+import { APIResponse, UserPayload } from "../utils/type";
 export const authApi = createApi({
     reducerPath: "authApi",
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL+"users/" }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "users/" }),
+    tagTypes: ["loginUser"],
     endpoints: (builder) => ({
         registerUser: builder.mutation<APIResponse, UserPayload>({
             query: (data) => ({
@@ -20,6 +21,7 @@ export const authApi = createApi({
                 body: data,
                 headers: commonHeaders,
             }),
+            invalidatesTags: ["loginUser"]
         }),
         profileUserData: builder.query<APIResponse, string>({
             query: () => ({
@@ -29,6 +31,7 @@ export const authApi = createApi({
                     ...getAuthorizationHeader(),
                 },
             }),
+            providesTags: ["loginUser"]
         }),
         logOutUser: builder.query<APIResponse, string>({
             query: () => ({
@@ -39,6 +42,7 @@ export const authApi = createApi({
                 },
             }),
         }),
+
     }),
 });
 

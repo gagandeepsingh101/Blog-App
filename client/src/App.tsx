@@ -26,7 +26,7 @@ const App: React.FC = () => {
     }
   }, [blogData, dispatch, formatDate, isSuccessBlog, isSuccessUser, userData])
   return (
-    <div className='h-screen w-screen bg-slate-100 overflow-x-hidden overflow-y-scroll '>
+    <div className='h-screen w-screen bg-slate-100 overflow-hidden '>
       <Header />
       <Outlet />
     </div>

@@ -39,7 +39,8 @@ const HeaderMenuBox = () => {
                         <span className='w-full h-1/2 font-bold'>Profile</span>
                     </p>
                     <p className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex items-center text-md rounded-md px-5'>BookMark</p>
-                    <p onClick={() => {
+                    <p onClick={(e) => {
+                        e.preventDefault();
                         dispatch(clearUserInfo());
                         setCookie("UserAuth", UserAuthKey, 0);
                         navigate("/");

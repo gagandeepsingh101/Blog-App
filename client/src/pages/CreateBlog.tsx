@@ -6,12 +6,12 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import BlogForm from '../components/BlogForm';
 import { useCreateNewBlogMutation } from '../services/blogApi';
 import { NewBlogType, UserInfoType } from '../utils/type';
-import { useUploadImageCloudinary } from '../utils/useUploadImageCloudinary';
+import { useAddImageCloud } from '../utils/handleCloudinaryAction';
 
 const CreateBlog = () => {
     const userInfo = useSelector((state: { auth: UserInfoType }) => state.auth)
     const [createNewBlog] = useCreateNewBlogMutation();
-    const uploadImageClouding = useUploadImageCloudinary;
+    const uploadImageClouding = useAddImageCloud;
     const [newBlog, setNewBlog] = useState<NewBlogType>({
         title: "",
         description: "",
@@ -28,6 +28,7 @@ const CreateBlog = () => {
             image: "",
             previewImage: "",
         })
+        window.location.reload();
     };
 
     return (

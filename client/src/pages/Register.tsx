@@ -1,14 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '../services/authApi';
+import { useAddImageCloud } from '../utils/handleBlogAction';
 import { RegisterSchema } from '../utils/schema';
 import { UserRegistrationType } from '../utils/type';
-import { useState } from 'react';
-import { useUploadImageCloudinary } from '../utils/useUploadImageCloudinary';
 
 const Register = () => {
-  const uploadImageCloudinary = useUploadImageCloudinary;
+  const uploadImageCloudinary = useAddImageCloud;
   const [registerUser] = useRegisterUserMutation();
   const [image, setImage] = useState<File | string>("");
   const navigate = useNavigate();
@@ -71,12 +71,11 @@ const Register = () => {
               {field.charAt(0).toUpperCase() + field.slice(1)}
             </label>
             <input
-              {...register(field)}
-              className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${
-                errors[field]?.message ? 'border-red-500' : 'focus:border-blue-500'
-              }`}
+              {...register(field as "name" | "password" | "email")}
+              className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors[field as "name" | "password" | "email"]?.message ? 'border-red-500' : 'focus:border-blue-500'
+                }`}
             />
-            <p className='text-red-500 h-16'>{errors[field]?.message}</p>
+            <p className='text-red-500 h-16'>{errors[field as "name" | "password" | "email"]?.message}</p>
           </div>
         ))}
         <button

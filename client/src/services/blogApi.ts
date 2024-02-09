@@ -14,7 +14,6 @@ export const blogApi = createApi({
                     ...commonHeaders,
                     ...getAuthorizationHeader(),
                 },
-
             }),
         }),
         getAllBlog: builder.query<BlogAPIResponse, string>({
@@ -26,6 +25,16 @@ export const blogApi = createApi({
         getSpecificBlog: builder.query<BlogAPIResponse, string>({
             query: (params) => "getBlog/specificBlog/" + params
         }),
+        deleteBlog: builder.mutation<BlogAPIResponse, string>({
+            query: (params) => ({
+                url: "deleteBlog/" + params,
+                method: "DELETE",
+                headers: {
+                    ...commonHeaders,
+                    ...getAuthorizationHeader(),
+                }
+            })
+        })
     }),
 });
 
@@ -33,7 +42,8 @@ export const {
     useCreateNewBlogMutation,
     useGetAllBlogQuery,
     useGetUserSpecificBlogsQuery,
-    useGetSpecificBlogQuery
+    useGetSpecificBlogQuery,
+    useDeleteBlogMutation
 } = blogApi;
 
 
