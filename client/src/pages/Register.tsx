@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '../services/authApi';
-import { useAddImageCloud } from '../utils/handleBlogAction';
+import { useAddImageCloud } from '../utils/handleCloudinaryAction';
 import { RegisterSchema } from '../utils/schema';
 import { UserRegistrationType } from '../utils/type';
 

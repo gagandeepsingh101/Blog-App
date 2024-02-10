@@ -1,21 +1,28 @@
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { BlogAPIData } from '../utils/type';
+import { BlogAPIData, BlogAPIResponse } from '../utils/type';
 import { useFormatDate } from '../utils/useFormatDate';
+import { useGetAllBlogQuery } from '../services/blogApi';
+import { addBlogData } from '../features/blogSlice';
 
 const Home: React.FC = () => {
+    const { data: response } = useGetAllBlogQuery("");
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (response && response.success) {
+            const { data: blogData } = response as BlogAPIResponse;
+            dispatch(addBlogData(blogData));
+        }
+    }, [dispatch, response])
     const navigate = useNavigate();
     const blogData = useSelector((state: { blog: BlogAPIData[] }) => state.blog);
     const formatTime = useFormatDate;
 
-    // Memoize formatTime using useMemo
     const memoizedFormatTime = useMemo(() => formatTime, []);
 
-    // Function to extract key
     const getKey = (blog: BlogAPIData) => blog._id;
 
-    // Check if blogData is not an array or if it's empty
     const hasBlogData = Array.isArray(blogData) && blogData.length > 0;
 
     return (

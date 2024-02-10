@@ -36,7 +36,7 @@ const Profile = () => {
                     <p onClick={() => setUserAction("bookmarkblogs")} className={" cursor-pointer h-full w-fit px-2 text-xl flex items-center justify-center" + (userAction === "bookmarkblogs" && " border-b-2 border-blue-500")}>Bookmark Blogs</p>
                 </div>
                 <div className="w-full h-[90%] overflow-y-scroll overflow-x-hidden px-3 flex flex-col gap-4 py-6 ">
-                    {userAction === "userBlogs" && (userBlogs?.data?.length > 0 ? (userBlogs?.data?.map(blog => (<div className="w-full h-1/3 px-3 py-2 rounded-xl flex items-center justify-between bg-blue-50 hover:bg-blue-100" key={blog._id}>
+                    {userAction === "userBlogs" && ((userBlogs?.data as BlogAPIData[])?.length > 0 ? (userBlogs?.data?.map(blog => (<div className="w-full h-1/3 px-3 py-2 rounded-xl flex items-center justify-between bg-blue-50 hover:bg-blue-100" key={blog._id}>
                         <img src={blog.image} className="w-2/12 h-32 py-4 " alt="" />
                         <div className="w-7/12 h-5/6">
                             <p onClick={() => navigate("/blog/" + blog._id)} className="text-xl mb-2 font-bold hover:underline">{blog.title}</p>
@@ -44,7 +44,7 @@ const Profile = () => {
                         </div>
                         <div className="w-2/12 h-5/6 flex flex-col justify-between items-end">
                             {formatDate(blog.createdAt.split("T")[0])}
-                            <BiEdit className="text-3xl text-blue-300 hover:text-blue-600 cursor-pointer"></BiEdit>
+                            <BiEdit onClick={() => navigate("/updateBlog/" + blog._id)} className="text-3xl text-blue-300 hover:text-blue-600 cursor-pointer"></BiEdit>
                             <FiDelete onClick={async (e) => {
                                 e.preventDefault();
                                 await deleteImage(blog.image)

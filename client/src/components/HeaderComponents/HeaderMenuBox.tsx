@@ -9,6 +9,7 @@ import { useSetCookie } from '../../utils/useCookieSetter';
 
 
 const HeaderMenuBox = () => {
+    const dispatch = useDispatch();
     const bookMarkData = useSelector((state: { bookmarks: { bookmarksBlog: BlogAPIData[] | [] } }) => state.bookmarks).bookmarksBlog;
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => {
@@ -16,7 +17,6 @@ const HeaderMenuBox = () => {
     };
     const setCookie = useSetCookie;
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { image } = useSelector((state: { auth: UserInfoType }) => state.auth)
     return (
         <>

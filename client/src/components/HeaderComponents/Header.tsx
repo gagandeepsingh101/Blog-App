@@ -7,7 +7,6 @@ import { UserInfoType } from '../../utils/type';
 import HeaderMenuBox from './HeaderMenuBox';
 
 const Header: React.FC = () => {
-  
   const navigate: NavigateFunction = useNavigate();
   const userInfo = useSelector((state: { auth: UserInfoType }) => state.auth)
   const { register, handleSubmit, reset } = useForm<{ search: string }>();
@@ -42,7 +41,7 @@ const Header: React.FC = () => {
         {
           document.cookie && userInfo ? <>
             <button
-            onClick={()=>navigate("/createBlog")}
+              onClick={() => navigate("/createBlog")}
               type='button'
               className='w-1/4 rounded-md border text-blue-500 border-blue-500 text-center hover:bg-blue-500 hover:text-white font-bold transition-all duration-300 ease-in-out'
             >

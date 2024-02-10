@@ -33,7 +33,7 @@ const SingleBlog: React.FC = () => {
                     {
                         (userId !== blogData.authorId) ? <BiBookmark onClick={() => dispatch(addBookMarkBlogs(blogData))} className="text-3xl text-green-300 hover:text-green-600 cursor-pointer" />
                             : <>
-                                <BiEdit className="text-3xl text-blue-300 hover:text-blue-600 cursor-pointer" />
+                                <BiEdit onClick={() => navigate("/updateBlog/" + blogData._id)} className="text-3xl text-blue-300 hover:text-blue-600 cursor-pointer" />
                                 <CgClose onClick={async (e) => {
                                     e.preventDefault();
                                     await deleteImage(blogData.image)

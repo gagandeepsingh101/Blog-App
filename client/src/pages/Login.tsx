@@ -24,6 +24,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<UserLoginType> = async (userData) => {
     await handleLoginSubmit({ userData, dispatch, loginUser, reset, profileData });
     navigate("/");
+    document.location.reload();
   };
   return (
     <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>

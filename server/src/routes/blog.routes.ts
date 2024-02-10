@@ -12,7 +12,7 @@ blogRouter.get('/', async (req, res) => {
 });
 
 blogRouter.post('/createBlog', createNewBlog);
-blogRouter.post('/updateBlog/:id', updateBlog);
+blogRouter.put('/updateBlog/:id', updateBlog);
 blogRouter.delete('/deleteBlog/:id', deleteBlog);
 blogRouter.get('/getBlogs', getAllBlog);
 blogRouter.get('/getBlogs/specificUser/:userId', getAllUserBlog)

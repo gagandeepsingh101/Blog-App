@@ -16,14 +16,16 @@ export const blogApi = createApi({
                 },
             }),
         }),
-        getAllBlog: builder.query<BlogAPIResponse, string>({
-            query: () => "getBlogs",
-        }),
-        getUserSpecificBlogs: builder.query<BlogAPIResponse, string>({
-            query: (params) => "getBlogs/specificUser/" + params,
-        }),
-        getSpecificBlog: builder.query<BlogAPIResponse, string>({
-            query: (params) => "getBlog/specificBlog/" + params
+        updateBlog: builder.mutation<BlogAPIResponse, { id: string, data: NewBlogType }>({
+            query: ({ id, data }) => ({
+                url: "updateBlog/" + id,
+                method: "PUT",
+                body: { ...data, _id: id },
+                headers: {
+                    ...commonHeaders,
+                    ...getAuthorizationHeader(),
+                }
+            })
         }),
         deleteBlog: builder.mutation<BlogAPIResponse, string>({
             query: (params) => ({
@@ -34,7 +36,28 @@ export const blogApi = createApi({
                     ...getAuthorizationHeader(),
                 }
             })
-        })
+        }),
+        updateBlog: builder.mutation<BlogAPIResponse, { id: string, data: NewBlogType }>({
+            query: ({ id, data }) => ({
+                url: "updateBlog/" + id,
+                method: "PUT",
+                body: { ...data, _id: id },
+                headers: {
+                    ...commonHeaders,
+                    ...getAuthorizationHeader(),
+                }
+            })
+        }),
+
+        getAllBlog: builder.query<BlogAPIResponse, string>({
+            query: () => "getBlogs",
+        }),
+        getUserSpecificBlogs: builder.query<BlogAPIResponse, string>({
+            query: (params) => "getBlogs/specificUser/" + params,
+        }),
+        getSpecificBlog: builder.query<BlogAPIResponse, string>({
+            query: (params) => "getBlog/specificBlog/" + params
+        }),
     }),
 });
 
@@ -43,7 +66,8 @@ export const {
     useGetAllBlogQuery,
     useGetUserSpecificBlogsQuery,
     useGetSpecificBlogQuery,
-    useDeleteBlogMutation
+    useDeleteBlogMutation,
+    useUpdateBlogMutation
 } = blogApi;
 
 

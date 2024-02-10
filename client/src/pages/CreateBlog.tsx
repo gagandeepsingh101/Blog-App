@@ -50,7 +50,7 @@ const CreateBlog = () => {
                         </>
                     }
                 </div>
-                <BlogForm newBlog={newBlog} setNewBlog={setNewBlog} onSubmit={onSubmit} />
+                <BlogForm newBlog={newBlog} setNewBlog={setNewBlog} onSubmit={onSubmit} statusForm='Create' />
             </div>
         </div>
     );
