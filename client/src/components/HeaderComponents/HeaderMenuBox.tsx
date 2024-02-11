@@ -43,8 +43,8 @@ const HeaderMenuBox = () => {
                         e.preventDefault();
                         dispatch(clearUserInfo());
                         setCookie("UserAuth", UserAuthKey, 0);
+                        dispatch(clearUserInfo());
                         navigate("/");
-                        window.location.reload();
                     }}
                         className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex items-center text-md rounded-md px-5'>Sign Out</p>
                 </div>

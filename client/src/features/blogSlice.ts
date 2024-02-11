@@ -2,18 +2,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BlogAPIData } from "../utils/type";
 
 interface AuthState {
-    blogData: Array<BlogAPIData> | null; // Define the shape of your state
+    blogData: Array<BlogAPIData> | BlogAPIData[]; // Define the shape of your state
 }
 
 const initialState: AuthState = {
-    blogData: null, // Initial state should have an empty array
+    blogData: [], // Initial state should have an empty array
 };
 
 const blogSlice = createSlice({
     name: 'blog',
     initialState,
     reducers: {
-        addBlogData: (_state, action: PayloadAction<BlogAPIData[]>) => {
+        addBlogData: (_state, action: PayloadAction<BlogAPIData>) => {
             return action.payload;
         },
         clearBlogData: (state) => {
@@ -23,4 +23,4 @@ const blogSlice = createSlice({
 });
 
 export default blogSlice; // export the reducer
-export const { addBlogData, clearBlogData } = blogSlice.actions;
+export const { addBlogData, clearBlogData, updateBlogData } = blogSlice.actions;

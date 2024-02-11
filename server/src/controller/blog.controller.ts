@@ -16,10 +16,12 @@ export async function createNewBlog(req: Request<BlogRequestBody>, res: Response
         const descryptedData = jwt.verify(userToken, publicKey);
         const _id = (descryptedData as JwtPayload)._id;
         const newBlog = new BlogModel({ ...req.body, authorId: _id });
+        const deliverBlog = await BlogModel.find({})
         await newBlog.save();
         res.status(201).json({
             success: true,
-            message: "New Blog was created successfully"
+            message: "New Blog was created successfully",
+            data: [deliverBlog[deliverBlog.length - 1]],
         });
 
     } catch (error) {

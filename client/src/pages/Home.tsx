@@ -12,18 +12,18 @@ const Home: React.FC = () => {
     useEffect(() => {
         if (response && response.success) {
             const { data: blogData } = response as BlogAPIResponse;
-            dispatch(addBlogData(blogData));
+            dispatch(addBlogData(blogData ));
         }
     }, [dispatch, response])
     const navigate = useNavigate();
     const blogData = useSelector((state: { blog: BlogAPIData[] }) => state.blog);
     const formatTime = useFormatDate;
 
-    const memoizedFormatTime = useMemo(() => formatTime, []);
+    const memoizedFormatTime = useMemo(() => formatTime, [formatTime]);
 
     const getKey = (blog: BlogAPIData) => blog._id;
 
-    const hasBlogData = Array.isArray(blogData) && blogData.length > 0;
+    const hasBlogData = Array.isArray(blogData) && blogData.length > 0 && response?.success;
 
     return (
         <div className='w-full h-[92%] overflow-y-scroll py-2'>

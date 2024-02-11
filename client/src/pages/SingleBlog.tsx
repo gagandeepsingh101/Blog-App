@@ -39,13 +39,21 @@ const SingleBlog: React.FC = () => {
                                     await deleteImage(blogData.image)
                                     await deleteBlog(blogData._id)
                                     navigate("/");
-                                    document.location.reload();
                                 }} className="text-3xl text-red-300 hover:text-red-600 cursor-pointer" />
                             </>
                     }
                 </div>
             </div>
             <img src={blogData.image} className=' max-w-10/12 h-3/4 rounded-xl ring-blue-500 ring-1 p-1 mx-auto' alt="" />
+            <div className=' flex gap-3'>
+                {
+                    (blogData?.category as string[])?.map((categoryItem:string,idx:number)=>(
+                        <span key={idx+100} className={`${(idx === 0 && "bg-red-200") || (idx === 1 && "bg-yellow-200 ") || (idx === 2 && "bg-blue-200 ")} max-w-32 flex items-center justify-between gap-2  px-3 py-2 rounded-xl truncate`}>
+                            {categoryItem}
+                        </span>
+                    ))
+                }
+            </div>
             <p className='w-8/12 mx-auto font-bold text-2xl flex justify-between text-[#00000068]'><span className='hover:underline hover:text-black'>@ {blogData.authorName}</span> <span>{formatDate(blogData.createdAt.toString())}</span></p>
             <p className='w-11/12 h-fit  my-5 mx-auto text-xl'>{blogData.description}</p>
         </div>

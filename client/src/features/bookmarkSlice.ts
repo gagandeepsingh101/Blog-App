@@ -23,9 +23,12 @@ const bookmarksBlogSlice = createSlice({
         },
         removeBookmarksBlog: (state, action: PayloadAction<string>) => {
             state.bookmarksBlog = [...state.bookmarksBlog.filter(blog => blog._id !== action.payload)];
+        },
+        clearBookmarksBlog: (state) => {
+            state.bookmarksBlog.length = 0;
         }
     }
 });
 
 export default bookmarksBlogSlice;
-export const { addBookMarkBlogs, removeBookmarksBlog } = bookmarksBlogSlice.actions;
+export const { addBookMarkBlogs, removeBookmarksBlog,clearBookmarksBlog } = bookmarksBlogSlice.actions;

@@ -3,12 +3,15 @@ import { NewBlogType } from '../utils/type';
 import { Dispatch, SetStateAction } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BlogSchema } from '../utils/schema';
+import BlogCategoryList from './BlogCategoryList';
 
-const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm }: {
+const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, categoryItems }: {
     setNewBlog: Dispatch<SetStateAction<NewBlogType>>;
     newBlog: NewBlogType;
     onSubmit: SubmitHandler<NewBlogType>;
     statusForm: string;
+    categoryItems: string[];
+    setCategoryItem: Dispatch<SetStateAction<string[]>>;
 }) => {
     // Initialize react-hook-form
     const { register, handleSubmit, formState: { errors } } = useForm<NewBlogType>({
@@ -90,6 +93,7 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm }: {
             {/* Display description input validation error */}
             {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
+            <BlogCategoryList setCategoryItem={setCategoryItem} categoryItems={categoryItems} />
             {/* Submit button */}
             <button
                 type='submit'

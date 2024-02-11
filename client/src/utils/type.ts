@@ -42,7 +42,6 @@ export interface UserInfoType {
 
 export type loginUserActionType = {
     userData: UserLoginType;
-    dispatch: Dispatch<Action<"auth/addUserInfo">>;
     loginUser: (
         body: UserPayload,
         options?: {
@@ -52,7 +51,6 @@ export type loginUserActionType = {
         }
     ) => Promise<{ data: APIResponse }>;
     reset: UseFormReset<UserLoginType>;
-    profileData: APIResponse | undefined;
 };
 
 
@@ -60,6 +58,7 @@ export type NewBlogType = {
     title: string,
     image: File | string,
     description: string,
+    category: string[],
     previewImage?: string
     authorName?: string
     authorEmail?: string
@@ -68,6 +67,7 @@ export type BlogAPIData = {
     authorEmail: string,
     authorId: string,
     authorName: string,
+    category: string[],
     createdAt: string,
     description: string,
     image: string,

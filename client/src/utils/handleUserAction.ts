@@ -1,4 +1,3 @@
-import { addUserInfo } from "../features/authSlice";
 import { loginUserActionType } from "./type";
 import { useSetCookie } from "./useCookieSetter";
 const setCookie = useSetCookie;
@@ -9,15 +8,12 @@ export const useLoginUserAction = async ({
     dispatch,
     loginUser,
     reset,
-    profileData,
 }: loginUserActionType): Promise<void> => {
     try {
-        const { success, token } = await loginUser(userData).unwrap();
+        const { success, token, data } = await loginUser(userData).unwrap();
         if (success && token) {
             setCookie('UserAuth', token, 10);
-            if (profileData?.data) {
-                dispatch(addUserInfo(profileData.data));
-            }
+            return data;
         }
     } catch (error) {
         console.error(error);

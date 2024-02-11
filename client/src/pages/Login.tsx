@@ -2,7 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLoginUserMutation, useProfileUserDataQuery } from '../services/authApi';
+import { addUserInfo } from '../features/authSlice';
+import { clearBookmarksBlog } from '../features/bookmarkSlice';
+import { useLoginUserMutation } from '../services/authApi';
 import { useLoginUserAction } from '../utils/handleUserAction';
 import { LoginSchema } from '../utils/schema';
 import { UserLoginType } from '../utils/type';
@@ -11,7 +13,6 @@ const Login = () => {
   const handleLoginSubmit = useLoginUserAction;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: profileData } = useProfileUserDataQuery("");
   const {
     register,
     reset,
@@ -22,9 +23,10 @@ const Login = () => {
     mode: 'all'
   });
   const onSubmit: SubmitHandler<UserLoginType> = async (userData) => {
-    await handleLoginSubmit({ userData, dispatch, loginUser, reset, profileData });
+    const data = await handleLoginSubmit({ userData, loginUser, reset });
+    dispatch(addUserInfo(data));
+    dispatch(clearBookmarksBlog());
     navigate("/");
-    document.location.reload();
   };
   return (
     <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>

@@ -50,7 +50,14 @@ export async function userLoginController(req: Request<UserType>, res: Response<
         }).status(200).json({
             success: true,
             token: token,
-            message: user.name + " is login successfully"
+            message: user.name + " is login successfully",
+            data: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                image: user.image,
+                joinedDate:user.createdAt
+            },
         });
     } catch (error: any) {
         console.log(error.message);

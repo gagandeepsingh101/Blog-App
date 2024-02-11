@@ -9,6 +9,7 @@ import { BlogAPIData, NewBlogType } from '../utils/type';
 
 const UpdateBlog = () => {
     const uploadImage = useAddImageCloud;
+    const [categoryItems, setCategoryItem] = useState<string[]>([]);
     const { id } = useParams();
     const navigate = useNavigate();
     const { data: response } = useGetSpecificBlogQuery(id as string);
@@ -20,19 +21,19 @@ const UpdateBlog = () => {
             const { data } = response;
             if (data && data.length > 0) {
                 const previousBlogData = data[0] as BlogAPIData;
+                console.log(previousBlogData);
                 setNewBlogData({ ...(previousBlogData as NewBlogType), previewImage: "" });
+                setCategoryItem(previousBlogData.category);
             }
         }
     }, [response]);
-
     const onSubmit: SubmitHandler<NewBlogType> = async () => {
         try {
             if (blogData) {
                 const imageUrl = await uploadImage(blogData?.image as File);
-                const response = await updateBlog({ id: id as string, data: { title: blogData.title, description: blogData.description, image: imageUrl } });
+                await updateBlog({ id: id as string, data: { title: blogData.title, description: blogData.description, image: imageUrl, category: categoryItems } });
                 navigate("/");
                 document.location.reload();
-                console.log(response);
             }
         } catch (error) {
             // Handle error
@@ -52,12 +53,17 @@ const UpdateBlog = () => {
                     {blogData && (
                         <>
                             <img src={(blogData.image as File).name ? blogData.previewImage as string : blogData.image as string} className='w-1/2 h-1/2' alt="" />
+                            <div className='flex gap-2'>{
+                                categoryItems.length > 0 && categoryItems.map((category, idx) => (<span className={`${(idx === 0 && "bg-red-200") || (idx === 1 && "bg-yellow-200 ") || (idx === 2 && "bg-blue-200 ")} max-w-32 flex items-center justify-between gap-2  px-3 py-2 rounded-xl`}>
+                                    {category}
+                                </span>))
+                            }</div>
                             <h1 className=' w-full text-4xl h-fit font-bold'>{blogData?.title}</h1>
                             <p className='w-full h-1/3'>{blogData?.description}</p>
                         </>
                     )}
                 </div>
-                <BlogForm newBlog={blogData as NewBlogType} setNewBlog={setNewBlogData as React.Dispatch<SetStateAction<NewBlogType>>} onSubmit={onSubmit} statusForm='Update' />
+                <BlogForm newBlog={blogData as NewBlogType} setNewBlog={setNewBlogData as React.Dispatch<SetStateAction<NewBlogType>>} onSubmit={onSubmit} statusForm='Update' categoryItems={categoryItems} setCategoryItem={setCategoryItem} />
             </div>
         </div>
     );

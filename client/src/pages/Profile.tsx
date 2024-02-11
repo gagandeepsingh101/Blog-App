@@ -49,7 +49,6 @@ const Profile = () => {
                                 e.preventDefault();
                                 await deleteImage(blog.image)
                                 await deleteUserBlog(blog._id)
-                                document.location.reload();
                             }} className="text-3xl text-red-300 hover:text-red-600 cursor-pointer"></FiDelete>
                         </div>
                     </div>))) : <p>No User Created blog present</p>)}

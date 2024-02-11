@@ -4,6 +4,7 @@ import { BlogAPIResponse, NewBlogType } from "../utils/type";
 export const blogApi = createApi({
     reducerPath: "blogApi",
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "blogs/" }),
+    tagTypes: ["BlogPOST","BlogPUT","BlogDELETE"],
     endpoints: (builder) => ({
         createNewBlog: builder.mutation<BlogAPIResponse, NewBlogType>({
             query: (data) => ({
@@ -15,17 +16,7 @@ export const blogApi = createApi({
                     ...getAuthorizationHeader(),
                 },
             }),
-        }),
-        updateBlog: builder.mutation<BlogAPIResponse, { id: string, data: NewBlogType }>({
-            query: ({ id, data }) => ({
-                url: "updateBlog/" + id,
-                method: "PUT",
-                body: { ...data, _id: id },
-                headers: {
-                    ...commonHeaders,
-                    ...getAuthorizationHeader(),
-                }
-            })
+            invalidatesTags:["BlogPOST"]
         }),
         deleteBlog: builder.mutation<BlogAPIResponse, string>({
             query: (params) => ({
@@ -35,7 +26,8 @@ export const blogApi = createApi({
                     ...commonHeaders,
                     ...getAuthorizationHeader(),
                 }
-            })
+            }),
+            invalidatesTags:["BlogDELETE"]
         }),
         updateBlog: builder.mutation<BlogAPIResponse, { id: string, data: NewBlogType }>({
             query: ({ id, data }) => ({
@@ -46,21 +38,23 @@ export const blogApi = createApi({
                     ...commonHeaders,
                     ...getAuthorizationHeader(),
                 }
-            })
+            }),
+            invalidatesTags:["BlogPUT"]
         }),
 
         getAllBlog: builder.query<BlogAPIResponse, string>({
             query: () => "getBlogs",
+            providesTags:["BlogPUT","BlogDELETE","BlogPOST"]
         }),
         getUserSpecificBlogs: builder.query<BlogAPIResponse, string>({
             query: (params) => "getBlogs/specificUser/" + params,
+            providesTags:["BlogDELETE","BlogPOST","BlogPUT"]
         }),
         getSpecificBlog: builder.query<BlogAPIResponse, string>({
             query: (params) => "getBlog/specificBlog/" + params
         }),
     }),
 });
-
 export const {
     useCreateNewBlogMutation,
     useGetAllBlogQuery,
