@@ -7,6 +7,14 @@ export const useFormatDate = (actualDate: string) => {
     const day: number = date.getDate();
     const year: number = date.getFullYear();
 
-    const formattedDate: string = `${month} ${day}, ${year}`;
+    let formattedDate: string = `${month} ${day}, ${year}`;
+
+    const hours: number = date.getHours();
+    const minutes: number = date.getMinutes();
+    const ampm: string = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours: number = hours % 12 || 12;
+
+    formattedDate += ` ${formattedHours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+
     return formattedDate;
 }

@@ -11,6 +11,7 @@ import Profile from './pages/Profile.tsx'
 import CreateBlog from './pages/CreateBlog.tsx'
 import SingleBlog from './pages/SingleBlog.tsx'
 import UpdateBlog from './pages/UpdateBlog.tsx'
+import SearchPage from './pages/SearchPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,8 @@ const router = createBrowserRouter([
       { path: '/blog/:id', element: <SingleBlog /> },
     ],
   },
+
+  { path: '/search/:searchQuery', element: <SearchPage /> },
   { path: '/updateBlog/:id', element: <UpdateBlog /> },
   {
     path: '/login',

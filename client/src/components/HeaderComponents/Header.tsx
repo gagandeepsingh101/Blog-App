@@ -2,16 +2,19 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CiSearch } from 'react-icons/ci';
 import { useSelector } from 'react-redux';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import { UserInfoType } from '../../utils/type';
 import HeaderMenuBox from './HeaderMenuBox';
 
 const Header: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
+  const { pathname } = useLocation();
   const userInfo = useSelector((state: { auth: UserInfoType }) => state.auth)
   const { register, handleSubmit, reset } = useForm<{ search: string }>();
   const onSubmit: SubmitHandler<{ search: string }> = (data) => {
-    console.log(data);
+    if (pathname !== "/search/" + data.search && data.search.length > 0) {
+      navigate("/search/" + data.search);
+    }
     reset();
   };
 

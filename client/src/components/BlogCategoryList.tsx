@@ -6,8 +6,9 @@ type Props = {
     setCategoryItem: Dispatch<SetStateAction<string[]>>;
 };
 
-const BlogCategoryList = ({categoryItems,setCategoryItem}: Props) => {
+const BlogCategoryList = ({ categoryItems, setCategoryItem }: Props) => {
     const [category, setCategory] = useState<string>("");
+
     return (
         <div className='my-2 w-full flex flex-col gap-4'>
             <label htmlFor='category' className='text-lg font-semibold'>Category</label>
@@ -26,19 +27,36 @@ const BlogCategoryList = ({categoryItems,setCategoryItem}: Props) => {
                         );
                     })}
                 </div>
-                <input placeholder='Add Upto 3 tags' disabled={categoryItems?.length === 3} type="text" className='focus:outline-none h-fit border-2 border-blue-500 rounded-xl p-2 w-11/12' value={category} onChange={(e) => setCategory(e.target.value)} />
-                <button type='button' disabled={categoryItems?.length === 3} onClick={() => {
-                    setCategoryItem(prevArr => {
-                        if (prevArr.includes(category)) {
-                            return prevArr
+                <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    disabled={categoryItems?.length === 3}
+                    className='focus:outline-none h-fit border-2 border-blue-500 rounded-xl p-2 w-11/12'
+                >
+                    <option value="" disabled>Select a category</option>
+                    <option value="DSA">DSA</option>
+                    <option value="Web Dev">Web Dev </option>
+                    <option value="Full Stack">Full Stack</option>
+                    <option value="Java">JAVA</option>
+                    <option value="Python">Pyhton</option>
+                    <option value="C++">C++</option>
+                </select>
+                <button
+                    type='button'
+                    disabled={categoryItems?.length === 3}
+                    onClick={() => {
+                        if (category && !categoryItems.includes(category)) {
+                            setCategoryItem(prevArr => [...prevArr, category]);
+                            setCategory(""); // Reset input field after selection
                         }
-                        else {
-                            return [...prevArr, category];
-                        }
-                    })
-                }} className='text-2xl text-slate-400 hover: hover:text-black'><CgAdd className='w-fit h-fit ' /></button>
+                    }}
+                    className='text-2xl text-slate-400 hover: hover:text-black'
+                >
+                    <CgAdd className='w-fit h-fit' />
+                </button>
             </div>
         </div>
     );
 };
+
 export default BlogCategoryList;
