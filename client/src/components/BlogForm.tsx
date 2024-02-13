@@ -38,13 +38,13 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)} // Call onSubmit function when form is submitted
-            className='w-1/3 mx-auto h-full flex flex-col justify-center gap-2'
+            className=' w-11/12 mx-auto h-fit my-auto flex flex-col justify-center gap-4  lg:w-1/3 lg:h-[95%] lg:gap-2'
         >
             {/* Upload blog post image */}
-            <label htmlFor='image' className='block text-lg font-semibold'>
+            <label htmlFor='image' className='block  font-semibold lg:text-xl'>
                 Upload Blog Post Image
             </label>
-            <div className="flex justify-between items-center">
+            <div className=" h-1/2 flex justify-between gap-2 items-center border border-blue-700 py-2 px-3 rounded-xl md:h-fit">
                 {/* Hidden input for file selection */}
                 <input
                     {...register('image')}
@@ -68,7 +68,7 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
             {errors.image && <p className="text-red-500">{errors.image.message}</p>}
 
             {/* Input field for blog title */}
-            <label htmlFor='title' className='text-lg font-semibold'>
+            <label htmlFor='title' className=' font-semibold lg:text-xl lg:mt-4'>
                 Enter Blog Title
             </label>
             <input
@@ -78,26 +78,26 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
                 className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors.title ? 'border-red-500' : 'focus:border-blue-500'}`}
             />
             {/* Display title input validation error */}
-            {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+            <p className='text-red-500 h-10 lg:h-16'>{errors.title ? errors.title?.message : ""}</p>
 
             {/* Input field for blog description */}
-            <label htmlFor='description' className='text-lg font-semibold'>
+            <label htmlFor='description' className=' font-semibold lg:text-xl'>
                 Enter Blog Description
             </label>
             <textarea
                 {...register('description')}
                 value={newBlog?.description || ''}
                 onChange={(e) => setNewBlog(prev => ({ ...prev, description: e.target.value || '' }))}
-                className={`w-full h-1/3 p-2 resize-none shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors.description ? 'border-red-500' : 'focus:border-blue-500'}`}
+                className={`w-full h-32 p-2 resize-none shadow-md focus:outline-none border rounded-md placeholder-red-400 lg:h-3/4 ${errors.description ? 'border-red-500' : 'focus:border-blue-500'}`}
             />
             {/* Display description input validation error */}
-            {errors.description && <p className="text-red-500">{errors.description.message}</p>}
+            <p className='text-red-500 h-5'>{errors.description ? errors.description.message : ""}</p>
 
             <BlogCategoryList setCategoryItem={setCategoryItem} categoryItems={categoryItems} />
             {/* Submit button */}
             <button
                 type='submit'
-                className='w-full px-3 py-2 my-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none'
+                className='w-full px-3 py-2 my-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 lg:w-fit mx-auto lg:text-xl focus:outline-none'
             >
                 {statusForm === "Create" && "Create Blog"}
                 {statusForm === "Update" && "Update Blog"}

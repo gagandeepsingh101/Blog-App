@@ -4,11 +4,12 @@ import { CgClose } from 'react-icons/cg';
 import { useNavigate, useParams } from 'react-router-dom';
 import BlogForm from '../components/BlogForm';
 import { useGetSpecificBlogQuery, useUpdateBlogMutation } from '../services/blogApi';
-import { useAddImageCloud } from '../utils/handleCloudinaryAction';
+import { useAddImageCloud, useRemoveImageFromCloud } from '../utils/handleCloudinaryAction';
 import { BlogAPIData, NewBlogType } from '../utils/type';
 
 const UpdateBlog = () => {
     const uploadImage = useAddImageCloud;
+    const deletePreviousImage= useRemoveImageFromCloud
     const [categoryItems, setCategoryItem] = useState<string[]>([]);
     const { id } = useParams();
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ const UpdateBlog = () => {
     const onSubmit: SubmitHandler<NewBlogType> = async () => {
         try {
             if (blogData) {
+                await deletePreviousImage(response?.data.image) 
                 const imageUrl = await uploadImage(blogData?.image as File);
                 await updateBlog({ id: id as string, data: { title: blogData.title, description: blogData.description, image: imageUrl, category: categoryItems } });
                 navigate("/");
@@ -42,14 +44,14 @@ const UpdateBlog = () => {
     };
 
     return (
-        <div className=' relative w-screen h-screen overflow-hidden p-2 bg-slate-100 flex flex-col justify-center items-center '>
-            <CgClose onClick={() => { navigate("/"); }} className='absolute top-5 right-5 text-3xl cursor-pointer hover:text-blue-500' />
-            <div className='w-3/5 mx-auto h-fit mt-auto mb-0 text-3xl flex justify-between text-blue-500 font-bold '>
-                <p>Preview</p>
+        <div className='relative w-screen h-fit overflow-scroll py-10 px-2  bg-slate-100 flex flex-col justify-center items-center lg:p-2 lg:h-screen'>
+         <CgClose onClick={() => navigate("/")} className='absolute top-2 right-2 text-3xl cursor-pointer hover:text-blue-500 lg:top-5 lg:right-5' />
+            <div className=' hidden mx-auto h-fit mt-auto mb-4 text-3xl justify-between text-blue-500 font-bold lg:flex lg:w-3/5'>
+                <p>Preview</p> 
                 <p>Editor</p>
             </div>
-            <div className='h-5/6 w-11/12 mx-auto my-auto bg-white rounded-xl p-2 flex'>
-                <div className='w-1/2 px-5 py-2 h-full flex flex-col gap-3 border-r-2 border-black overflow-hidden overflow-y-scroll '>
+            <div className='  h-5/6 w-11/12 mx-auto my-auto bg-white rounded-xl p-2 flex'>
+                <div className='hidden w-1/2 px-5 py-2 h-full  flex-col gap-3 border-r-2 border-black overflow-hidden overflow-y-scroll lg:flex'>
                     {blogData && (
                         <>
                             <img src={(blogData.image as File).name ? blogData.previewImage as string : blogData.image as string} className='w-1/2 h-1/2' alt="" />

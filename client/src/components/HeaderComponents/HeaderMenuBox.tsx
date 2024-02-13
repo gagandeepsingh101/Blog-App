@@ -20,11 +20,11 @@ const HeaderMenuBox = () => {
     const { image } = useSelector((state: { auth: UserInfoType }) => state.auth)
     return (
         <>
-            <div className='w-10 h-full relative flex items-center justify-center text-blue-500 cursor-pointer'>
-                <FaBookmark className='h-2/3 w-1/2' /> <sup className='font-bold absolute -top-2 text-lg -right-1'>{bookMarkData.length}</sup>
+            <div className='w-10 h-5/6 my-auto relative flex items-center justify-center text-blue-500'>
+                <FaBookmark className='h-5/6  w-2/3 my-auto md:w-1/2' /> <sup className='font-bold absolute top-0 md:text-lg md:-top-2  -right-1'>{bookMarkData.length}</sup>
             </div>
             <button onClick={toggleMenu}
-                className='w-12 h-fit rounded-full p-1 text-blue-500 text-center hover:ring-2 hover:ring-blue-500 transition-all duration-300 ease-in-out'
+                className='rounded-full  text-blue-500 text-center hover:ring-2 hover:ring-blue-500 transition-all duration-300 ease-in-out  h-fit w-10  lg:w-12'
             >
                 <img src={image} className='rounded-full ' alt="" />
             </button>
@@ -35,10 +35,10 @@ const HeaderMenuBox = () => {
                     <p onClick={() => {
                         navigate("/profile")
                         toggleMenu();
-                    }} className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex flex-col  py-2 text-md rounded-md px-5'>
-                        <span className='w-full h-1/2 font-bold'>Profile</span>
+                    }} className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex flex-col justify-center  py-2 text-md rounded-md px-5'>
+                        Profile
                     </p>
-                    <p className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex items-center text-md rounded-md px-5'>BookMark</p>
+                    <p onClick={()=>navigate("/search/"+"All")} className=' w-full h-[30%] hover:bg-violet-100 hover:underline hover:text-violet-800 flex items-center text-md rounded-md px-5'>Search</p>
                     <p onClick={(e) => {
                         e.preventDefault();
                         dispatch(clearUserInfo());

@@ -41,15 +41,15 @@ const Register = () => {
   };
 
   return (
-    <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>
-      <h1 onClick={() => navigate("/")} className='cursor-pointer w-fit rounded-md text-3xl font-bold text-center bg-black text-white px-3 py-2'>
+    <div className='h-fit w-screen bg-slate-100 py-5 flex flex-col gap-6 items-center justify-evenly md:overflow-y-scroll lg:h-screen lg:overflow-hidden'>
+      <h1 onClick={() => navigate("/")} className='cursor-pointer w-fit rounded-md font-bold text-center bg-black text-white px-3 py-2 text-xl md:text-2xl lg:text-3xl'>
         LOL
       </h1>
-      <h3 className='w-fit text-2xl font-bold hover:underline'>
+      <h3 className='w-fit  font-bold text-lg hover:underline md:text-xl lg:text-2xl'>
         Register to Lol Blog App
       </h3>
-      <form onSubmit={handleSubmit(onSubmit)} className='w-[18%] mx-auto h-[75%] flex flex-col'>
-        <div className="flex justify-between items-center">
+      <form onSubmit={handleSubmit(onSubmit)} className=' mx-auto h-fit  flex flex-col lg:h-[75%] lg:w-[18%]'>
+        <div className="flex justify-between items-center gap-2  border rounded-xl my-3 border-blue-400 px-3 py-2">
           <input
             id="image"
             type='file'
@@ -63,7 +63,7 @@ const Register = () => {
           >
             Browse
           </button>
-          <p>{image instanceof File && image.name}</p>
+          <p>{image===""?"Profile Image":(image as File).name}</p>
         </div>
         {['name', 'email', 'password'].map((field) => (
           <div key={field}>
@@ -75,7 +75,7 @@ const Register = () => {
               className={`w-full px-3 py-2 my-2 shadow-md focus:outline-none border rounded-md placeholder-red-400 ${errors[field as "name" | "password" | "email"]?.message ? 'border-red-500' : 'focus:border-blue-500'
                 }`}
             />
-            <p className='text-red-500 h-16'>{errors[field as "name" | "password" | "email"]?.message}</p>
+            <p className='text-red-500 h-10 lg:h-16'>{errors[field as "name" | "password" | "email"]?.message}</p>
           </div>
         ))}
         <button
@@ -85,7 +85,7 @@ const Register = () => {
           Register
         </button>
       </form>
-      <p className='text-lg'>
+      <p className='lg:text-lg'>
         Already registered in <span className='font-bold'>LOL</span> blog App ?
         <span onClick={() => navigate("/login")} className='text-blue-600 cursor-pointer'>Log In</span>
       </p>
