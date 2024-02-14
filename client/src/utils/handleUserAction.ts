@@ -9,10 +9,11 @@ export const useLoginUserAction = async ({
     userData,
     loginUser, // Function to login user
     reset, // Function to reset form
-}: loginUserActionType): Promise<void> => {
+}: loginUserActionType): Promise<{ joinedDate: string | Date; id: string; image: string; name: string; email: string; } | undefined> => {
     try {
         // Attempt to login user and get response
-        const { success, token, data } = await loginUser(userData).unwrap();
+        const response = await loginUser(userData);
+        const { success, token, data } = response.data;
         if (success && token) {
             // If login is successful and token is received, set cookie with token
             setCookie('UserAuth', token, 10); // Set cookie with name 'UserAuth' and expiry time of 10 minutes
@@ -20,7 +21,7 @@ export const useLoginUserAction = async ({
         }
     } catch (error) {
         // Handle error if login fails
-        console.error(error); // Log error to console
+        // console.error(error); // Log error to console
     } finally {
         // Reset form fields regardless of success or failure
         reset(); // Reset form fields

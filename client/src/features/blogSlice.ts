@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BlogAPIData } from "../utils/type";
 
-interface AuthState {
-    blogData: Array<BlogAPIData> | BlogAPIData[]; // Define the shape of your state
+interface BookmarkType {
+    blogData: BlogAPIData[];
 }
 
-const initialState: AuthState = {
-    blogData: [], // Initial state should have an empty array
+const initialState: BookmarkType = {
+    blogData: []
 };
 
 const blogSlice = createSlice({
     name: 'blog',
     initialState,
     reducers: {
-        addBlogData: (_state, action: PayloadAction<BlogAPIData>) => {
-            return action.payload;
+        addBlogData: (state, action: PayloadAction<BlogAPIData[]>) => {
+            state.blogData.push(...action.payload);
         },
         clearBlogData: (state) => {
             (state.blogData as BlogAPIData[]).length = 0; // Reset the blogData array
@@ -23,4 +23,4 @@ const blogSlice = createSlice({
 });
 
 export default blogSlice; // export the reducer
-export const { addBlogData, clearBlogData, updateBlogData } = blogSlice.actions;
+export const { addBlogData, clearBlogData } = blogSlice.actions;

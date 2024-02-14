@@ -19,7 +19,7 @@ export const useAddImageCloud = async (image: File | string) => {
             return response.data.url;
         }
         // Log the response for debugging purposes
-        // console.log(response);
+        console.log(response);
     } catch (error) {
         // Log and handle errors if the request fails
         // console.error("Error uploading image to Cloudinary:", error);
@@ -63,7 +63,7 @@ export const useRemoveImageFromCloud = async (imageUrl: string) => {
         });
 
         // Log the response data for debugging purposes
-        // console.log(response.data);
+        console.log(response.data);
         // Handle success, maybe update UI accordingly
     } catch (error) {
         // Log and handle errors if the request fails

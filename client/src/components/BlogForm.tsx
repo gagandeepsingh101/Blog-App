@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Dispatch, SetStateAction } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { ResolverOptions, SubmitHandler, useForm } from 'react-hook-form';
 import { BlogSchema } from '../utils/schema';
 import { NewBlogType } from '../utils/type';
 import BlogCategoryList from './BlogCategoryList';
@@ -16,7 +16,7 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
     // Initialize react-hook-form
     const { register, handleSubmit, formState: { errors } } = useForm<NewBlogType>({
         resolver: yupResolver(BlogSchema) // Apply yup schema validation resolver
-    });
+    } as unknown as ResolverOptions<NewBlogType>);
 
     // Function to handle file input change
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

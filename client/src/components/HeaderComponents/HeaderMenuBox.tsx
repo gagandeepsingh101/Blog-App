@@ -10,7 +10,7 @@ import { clearBookmarksBlog } from '../../features/bookmarkSlice';
 import { successToast } from '../../utils/handleCustomToastShow';
 
 const HeaderMenuBox = ({ isOpen, setIsOpen }: {
-    isOpen: true,
+    isOpen: boolean,
     setIsOpen: Dispatch<SetStateAction<boolean>>
 }) => {
     // Initialize necessary hooks and variables

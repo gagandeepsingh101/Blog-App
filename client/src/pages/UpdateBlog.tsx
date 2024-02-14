@@ -33,7 +33,7 @@ const UpdateBlog = () => {
         try {
             if (blogData) {
                 // Delete previous image from Cloudinary
-                await deletePreviousImage(response?.data?.image);
+                await deletePreviousImage((response?.data as unknown as BlogAPIData)?.image);
                 // Upload new image to Cloudinary
                 const imageUrl = await uploadImage(blogData.image as File);
                 // Update blog data in the database

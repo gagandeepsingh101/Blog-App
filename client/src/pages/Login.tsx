@@ -8,7 +8,7 @@ import { useLoginUserMutation } from '../services/authApi';
 import { successToast } from '../utils/handleCustomToastShow';
 import { useLoginUserAction } from '../utils/handleUserAction';
 import { LoginSchema } from '../utils/schema';
-import { NewBlogType, UserLoginType } from '../utils/type';
+import { UserInfoType, UserLoginType } from '../utils/type';
 
 const Login = () => {
   // Initialize login user mutation and handle login action hook
@@ -33,16 +33,23 @@ const Login = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<UserLoginType> = async (userData) => {
     // Call login action and wait for response
-    const data: NewBlogType = await handleLoginSubmit({ userData, loginUser, reset });
-    // Dispatch user info to redux store
-    dispatch(addUserInfo(data));
-    // Show success toast
-    successToast("User Login Successfully");
-    // Navigate to home page after 2 seconds
-    setTimeout(() => {
-      navigate("/");
-    }, 2000)
+    const data = await handleLoginSubmit({ userData, loginUser, reset });
+    if (data && 'data' in data) {
+      // Dispatch user info to redux store
+      dispatch(addUserInfo(data as UserInfoType));
+      // Show success toast
+      successToast("User Login Successfully");
+      // Navigate to home page after 2 seconds
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } else {
+      // Handle the case where handleLoginSubmit returns undefined
+      // For example, show an error message to the user
+      console.log("Login failed");
+    }
   };
+
 
   return (
     <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>

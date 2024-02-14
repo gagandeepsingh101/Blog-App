@@ -1,5 +1,3 @@
-import { Action, Dispatch, SerializedError } from "@reduxjs/toolkit";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { UseFormReset } from "react-hook-form";
 
 
@@ -42,14 +40,7 @@ export interface UserInfoType {
 
 export type loginUserActionType = {
     userData: UserLoginType;
-    loginUser: (
-        body: UserPayload,
-        options?: {
-            onMutate?: () => Promise<void>;
-            onSuccess?: (result: { data: APIResponse } | { error: FetchBaseQueryError | SerializedError }) => void;
-            onError?: (error: unknown) => void;
-        }
-    ) => Promise<{ data: APIResponse }>;
+    loginUser:(userData: any) => Promise<any>; // Provide the type for loginUser function
     reset: UseFormReset<UserLoginType>;
 };
 
