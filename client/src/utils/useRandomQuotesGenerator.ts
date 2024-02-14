@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 export const useRandomQuoteGenerator = async (setRandomQuote: Dispatch<SetStateAction<{ author: string, content: string }>>) => {
     try {
         // Fetch a random quote with the "technology" tag from the Quotable API
-        const response = await axios("http://api.quotable.io/quotes/random?tags=technology");
+        const response = await axios("https://api.quotable.io/quotes/random?tags=technology");
         // console.log(response);
 
         // Check if the request was successful (status code 200)
