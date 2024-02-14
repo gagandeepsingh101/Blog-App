@@ -14,6 +14,7 @@ const blogSlice = createSlice({
     initialState,
     reducers: {
         addBlogData: (state, action: PayloadAction<BlogAPIData[]>) => {
+            (state.blogData as BlogAPIData[]).length = 0; // Reset the blogData array
             state.blogData.push(...action.payload);
         },
         clearBlogData: (state) => {

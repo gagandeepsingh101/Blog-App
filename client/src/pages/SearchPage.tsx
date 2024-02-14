@@ -5,6 +5,7 @@ import { BlogAPIData } from '../utils/type';
 import { useFilterBlog } from '../utils/useFilterBlog';
 import { useFormatDate } from '../utils/useFormatDate';
 import { Toaster } from 'react-hot-toast';
+import logo from '/public/favicon.ico';
 
 const SearchPage = () => {
     // State and hooks initialization
@@ -44,7 +45,7 @@ const SearchPage = () => {
             <Toaster />
             {/* Header and search input */}
             <div className='w-full px-3 py-2 sticky top-0 bg-gray-100'>
-                <img onClick={() => navigate('/')} src={"/public/favicon.ico"} className='w-12 h-12 md:w-16 md:h-16 lg:h-20 lg:w-20' alt="" />
+                <img onClick={() => navigate('/')} src={logo} className='w-12 h-12 md:w-16 md:h-16 lg:h-20 lg:w-20' alt="" />
                 <div className='mt-5 w-11/12 mx-auto flex items-center md:w-10/12 lg:w-1/2'>
                     {/* Search input */}
                     <input

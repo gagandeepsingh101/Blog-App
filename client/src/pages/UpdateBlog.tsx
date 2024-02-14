@@ -52,7 +52,7 @@ const UpdateBlog = () => {
     };
 
     return (
-        <div className='relative w-screen h-fit overflow-scroll py-10 px-2 bg-slate-100 flex flex-col justify-center items-center lg:p-2 lg:h-screen'>
+        <div className='relative w-screen h-fit overflow-scroll py-10 px-2 bg-slate-100 flex flex-col justify-center items-center lg:p-2 lg:overflow-hidden lg:h-screen'>
             {/* Toast component for displaying success messages */}
             <Toaster />
             {/* Close button to navigate back */}
