@@ -13,11 +13,12 @@ export const useLoginUserAction = async ({
     try {
         // Attempt to login user and get response
         const response = await loginUser(userData);
-        const { success, token, data } = response.data;
+        const { success, token } = response.data;
+        console.log(response);
         if (success && token) {
             // If login is successful and token is received, set cookie with token
             setCookie('UserAuth', token, 10); // Set cookie with name 'UserAuth' and expiry time of 10 minutes
-            return data; // Return user data
+            return response; // Return user data
         }
     } catch (error) {
         // Handle error if login fails

@@ -55,7 +55,7 @@ const Login = () => {
     <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>
       <Toaster />
       {/* DEV Logo */}
-      <img onClick={() => navigate('/')} src={"../../../public/favicon.ico"} className='w-12 h-12 md:w-16 md:h-16 lg:h-18 lg:w-18' alt="" />
+      <img onClick={() => navigate('/')} src={"/public/favicon.ico"} className='w-12 h-12 md:w-16 md:h-16 lg:h-18 lg:w-18' alt="" />
       {/* Login Header */}
       <h3 className='w-fit font-bold text-lg hover:underline md:text-xl lg:text-2xl'>
         Login to Lol Blog App
