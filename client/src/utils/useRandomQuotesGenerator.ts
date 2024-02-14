@@ -10,7 +10,6 @@ export const useRandomQuoteGenerator = async (setRandomQuote: Dispatch<SetStateA
                 content: response.data[0].content
             })
         }
-        console.log(response)
     } catch (error: any) {
         console.log(error.message)
     }

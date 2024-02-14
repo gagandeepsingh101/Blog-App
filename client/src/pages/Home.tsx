@@ -24,9 +24,6 @@ const Home: React.FC = () => {
             dispatch(addBlogData(blogData));
         }
     }, [dispatch, response]);
-
-    console.log(randomQuote);
-
     const navigate = useNavigate();
     const blogData = useSelector((state: { blog: BlogAPIData[] }) => state.blog);
     const formatTime = useFormatDate;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CiSearch } from 'react-icons/ci';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import HeaderMenuBox from './HeaderMenuBox';
 
 const Header: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
+  const [isOpen,setIsOpen]=useState<boolean>(false);
   const { pathname } = useLocation();
   const userInfo = useSelector((state: { auth: UserInfoType }) => state.auth)
   const { register, handleSubmit, reset } = useForm<{ search: string }>();
@@ -21,7 +22,12 @@ const Header: React.FC = () => {
   return (
     <div className='w-full h-[8%] z-50 bg-white shadow-md sticky top-0 left-0 flex justify-evenly items-center px-5 md:py-1 lg:py-2 gap-4'>
       <div className='w-5/12 h-full flex gap-4 '>
-        <p className='uppercase bg-black text-white  h-fit w-fit font-bold rounded-lg transition-all duration-300 ease-in-out my-auto px-3 py-2  md:text-lg  lg:text-xl lg:px-3 lg:py-2'>
+        <p onClick={() => {
+          
+          navigate('/');
+
+          
+        }} className='uppercase bg-black text-white  h-fit w-fit font-bold rounded-lg transition-all duration-300 ease-in-out my-auto px-3 py-2  md:text-lg  lg:text-xl lg:px-3 lg:py-2'>
           lol
         </p>
         <form
@@ -50,7 +56,7 @@ const Header: React.FC = () => {
             >
               Create Post
             </button>
-            <HeaderMenuBox></HeaderMenuBox>
+            <HeaderMenuBox isOpen={isOpen} setIsOpen={setIsOpen}></HeaderMenuBox>
 
           </> : <>
             <button
