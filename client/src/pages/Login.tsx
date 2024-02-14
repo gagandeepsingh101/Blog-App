@@ -1,4 +1,3 @@
-import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Toaster } from 'react-hot-toast';
@@ -34,24 +33,22 @@ const Login = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<UserLoginType> = async (userData) => {
     // Call login action and wait for response
-    const data:NewBlogType = await handleLoginSubmit({ userData, loginUser, reset });
+    const data: NewBlogType = await handleLoginSubmit({ userData, loginUser, reset });
     // Dispatch user info to redux store
     dispatch(addUserInfo(data));
     // Show success toast
     successToast("User Login Successfully");
     // Navigate to home page after 2 seconds
-    setTimeout(()=>{
+    setTimeout(() => {
       navigate("/");
-    },2000)
+    }, 2000)
   };
 
   return (
     <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>
       <Toaster />
-      {/* LOL Logo */}
-      <h1 onClick={() => navigate("/")} className='cursor-pointer w-fit rounded-md font-bold text-center bg-black text-white px-3 py-2 text-xl md:text-2xl lg:text-3xl'>
-        LOL
-      </h1>
+      {/* DEV Logo */}
+      <img onClick={() => navigate('/')} src={"../../../public/favicon.ico"} className='w-12 h-12 md:w-16 md:h-16 lg:h-18 lg:w-18' alt="" />
       {/* Login Header */}
       <h3 className='w-fit font-bold text-lg hover:underline md:text-xl lg:text-2xl'>
         Login to Lol Blog App

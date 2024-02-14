@@ -59,9 +59,7 @@ const Register = () => {
     // Registration form
     <div className='h-fit w-screen bg-slate-100 py-5 flex flex-col gap-6 items-center justify-evenly md:overflow-y-scroll lg:h-screen lg:overflow-hidden'>
       {/* Header */}
-      <h1 onClick={() => navigate("/")} className='cursor-pointer w-fit rounded-md font-bold text-center bg-black text-white px-3 py-2 text-xl md:text-2xl lg:text-3xl'>
-        LOL
-      </h1>
+      <img onClick={() => navigate('/')} src={"../../../public/favicon.ico"} className='w-12 h-12 md:w-16 md:h-16 lg:h-18 lg:w-18' alt="" />
       {/* Registration title */}
       <h3 className='w-fit font-bold text-lg hover:underline md:text-xl lg:text-2xl'>
         Register to Lol Blog App
