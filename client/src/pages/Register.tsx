@@ -58,7 +58,7 @@ const Register = () => {
 
   return (
     // Registration form
-    <div className='h-fit w-screen bg-slate-100 py-5 flex flex-col gap-6 items-center justify-evenly md:overflow-y-scroll lg:h-screen lg:overflow-hidden'>
+    <div className='h-fit w-screen bg-slate-100 py-5 flex flex-col cursor-pointer gap-6 items-center justify-evenly md:overflow-y-scroll lg:h-screen lg:overflow-hidden'>
       {/* Header */}
       <img onClick={() => navigate('/')} src={logo} className='w-12 h-12 md:w-16 md:h-16 lg:h-18 lg:w-18' alt="" />
       {/* Registration title */}

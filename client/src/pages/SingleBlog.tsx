@@ -31,7 +31,7 @@ const SingleBlog: React.FC = () => {
     const [blogData] = data as BlogAPIData[];
 
     return (
-        <div className='w-full h-full flex flex-col justify-center items-center py-28 gap-5 overflow-y-scroll'>
+        <div className='w-full h-[93%] py-4 flex flex-col justify-between items-center gap-5 overflow-y-scroll'>
             {/* Blog title and action buttons */}
             <div className='flex w-11/12 mx-auto items-center justify-between'>
                 <h1 className='text-lg font-bold w-4/5 lg:text-3xl'>{blogData.title}</h1>

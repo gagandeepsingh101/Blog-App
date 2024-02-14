@@ -53,7 +53,7 @@ const Login = () => {
 
 
   return (
-    <div className='h-screen w-screen bg-slate-100 py-5 flex flex-col items-center justify-evenly'>
+    <div className='h-screen w-screen bg-slate-100 py-5 flex cursor-pointer flex-col items-center justify-evenly'>
       <Toaster />
       {/* DEV Logo */}
       <img onClick={() => navigate('/')} src={logo} className='w-12 h-12 md:w-16 md:h-16 lg:h-18 lg:w-18' alt="" />

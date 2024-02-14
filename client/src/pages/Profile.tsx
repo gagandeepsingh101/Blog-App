@@ -51,7 +51,7 @@ const Profile = () => {
                             <img src={blog.image} className="w-2/12 h-32 py-4 " alt="" />
                             <div className="w-9/12 h-5/6 flex flex-col justify-evenly md:w-6/12">
                                 {/* Display blog title */}
-                                <p onClick={() => navigate("/blog/" + blog._id)} className="text-xl mb-2 font-bold hover:underline">{blog.title}</p>
+                                <p onClick={() => navigate("/blog/" + blog._id)} className="text-xl mb-2 font-bold hover:underline text-nowrap truncate">{blog.title}</p>
                                 {/* Display blog categories */}
                                 <div className='w-full flex flex-wrap gap-2 '>
                                     {blog.category.length > 0 && blog.category.map((category, idx) => (
@@ -81,7 +81,7 @@ const Profile = () => {
                             <img src={blog.image} className="w-2/12 h-32 py-4 " alt="" />
                             <div className="w-9/12 h-5/6 flex flex-col justify-evenly md:w-6/12">
                                 {/* Display blog title */}
-                                <p onClick={() => navigate("/blog/" + blog._id)} className="text-xl mb-2 font-bold hover:underline">{blog.title}</p>
+                                <p onClick={() => navigate("/blog/" + blog._id)} className="text-xl mb-2 font-bold hover:underline text-nowrap truncate">{blog.title}</p>
                                 {/* Display blog categories */}
                                 <div className='w-full flex flex-wrap gap-2 '>
                                     {blog.category.length > 0 && blog.category.map((category, idx) => (

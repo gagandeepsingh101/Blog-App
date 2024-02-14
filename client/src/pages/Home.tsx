@@ -72,7 +72,7 @@ const Home: React.FC = () => {
                             {/* Display blog information */}
                             <img src={blog.image} className='w-3/12 h-full py-3' alt="" />
                             <div className='w-8/12 h-full flex flex-col gap-2 justify-center lg:py-2'>
-                                <h1 className='text-lg font-bold md:text-xl lg:text-2xl'>{blog?.title}</h1>
+                                <h1 className='text-lg text-nowrap truncate font-bold md:text-xl'>{blog?.title}</h1>
                                 <div className='w-full flex gap-2 overflow-x-scroll overflow-y-hidden md:overflow-hidden'>
                                     {blog?.category?.length > 0 && blog?.category.map((category, idx) => (
                                         <span key={idx} className={`${(idx === 0 && "bg-red-200") || (idx === 1 && "bg-yellow-200 ") || (idx === 2 && "bg-blue-200 ")} max-w-32 flex items-center justify-between gap-2 px-2 md:py-1 rounded-xl`}>

@@ -31,7 +31,7 @@ const Header: React.FC = () => {
       {/* Left section of the header containing logo and search bar */}
       <div className='w-5/12 h-full flex gap-4'>
         {/* Logo */}
-        <img onClick={() => navigate('/')} src={logo} className='w-fit h-3/5 my-auto md:h-5/6 lg:h-full' alt="" />
+        <img onClick={() => navigate('/')} src={logo} className='w-fit h-3/5 my-auto md:h-5/6 lg:h-full cursor-pointer' alt="" />
         {/* Search form */}
         <form onSubmit={handleSubmit(onSubmit)} className='hidden justify-center items-center my-auto border-2 pl-3 border-[#00000017] rounded-lg focus-within:border-blue-500 focus-within:bg-blue-50 transition-all duration-300 ease-in-out md:flex md:h-5/6 lg:h-full lg:w-[58%]'>
           <input {...register('search')} className='h-4/5 bg-transparent focus-within:outline-none transition-all duration-300 ease-in-out md:w-[80%] lg:w-[87%]' />

@@ -24,7 +24,7 @@ const SearchPage = () => {
 
     // Function to handle search
     const handleSearch = () => {
-        if (Array.isArray(allBlogs) && newSearchQuery.length > 0) {
+        if (Array.isArray(allBlogs)) {
             const filtered = searchBlog("search", allBlogs, newSearchQuery);
             setFilteredBlogs(filtered);
         }
@@ -37,7 +37,7 @@ const SearchPage = () => {
             const filtered = searchBlog("search", allBlogs, newSearchQuery);
             setFilteredBlogs(filtered);
         }
-    }, []);
+    }, [allBlogs, searchBlog]);
 
     return (
         // Search page layout
@@ -45,7 +45,7 @@ const SearchPage = () => {
             <Toaster />
             {/* Header and search input */}
             <div className='w-full px-3 py-2 sticky top-0 bg-gray-100'>
-                <img onClick={() => navigate('/')} src={logo} className='w-12 h-12 md:w-16 md:h-16 lg:h-20 lg:w-20' alt="" />
+                <img onClick={() => navigate('/')} src={logo} className='w-12 h-12 md:w-16 md:h-16 lg:h-20 lg:w-20 cursor-pointer' alt="" />
                 <div className='mt-5 w-11/12 mx-auto flex items-center md:w-10/12 lg:w-1/2'>
                     {/* Search input */}
                     <input
@@ -66,6 +66,7 @@ const SearchPage = () => {
             </div>
             {/* Display filtered blogs */}
             <div className='mx-auto md:w-10/12 lg:w-7/12'>
+                {filteredBlogs.length===0 && <p className='text-center my-7 text-blue-600 font-bold md:text-xl lg:text-2xl'>No Blog Found</p>}
                 {filteredBlogs.map((blog: BlogAPIData) => (
                     <div onClick={() => navigate("/blog/" + blog._id)} key={blog._id} className='text-sm w-11/12 my-4 mx-auto h-40 overflow-hidden flex items-center justify-evenly cursor-pointer bg-white lg:text-base lg:p-2 rounded-xl hover:bg-blue-100 hover:ring-2 hover:ring-blue-500'>
                         <img src={blog.image} className='w-3/12 h-full py-3' alt="" />
