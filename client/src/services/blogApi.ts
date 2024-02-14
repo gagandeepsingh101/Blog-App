@@ -51,7 +51,8 @@ export const blogApi = createApi({
             providesTags:["BlogDELETE","BlogPOST","BlogPUT"]
         }),
         getSpecificBlog: builder.query<BlogAPIResponse, string>({
-            query: (params) => "getBlog/specificBlog/" + params
+            query: (params) => "getBlog/specificBlog/" + params,
+            providesTags:["BlogDELETE","BlogPOST","BlogPUT"]
         }),
     }),
 });

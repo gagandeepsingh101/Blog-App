@@ -1,8 +1,8 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { NewBlogType } from '../utils/type';
-import { Dispatch, SetStateAction } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Dispatch, SetStateAction } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { BlogSchema } from '../utils/schema';
+import { NewBlogType } from '../utils/type';
 import BlogCategoryList from './BlogCategoryList';
 
 const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, categoryItems }: {
@@ -38,13 +38,13 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)} // Call onSubmit function when form is submitted
-            className=' w-11/12 mx-auto h-fit my-auto flex flex-col justify-center gap-4  lg:w-1/3 lg:h-[95%] lg:gap-2'
+            className='w-11/12 mx-auto my-auto flex flex-col justify-center gap-4 lg:w-1/3 lg:h-[95%] lg:gap-2'
         >
             {/* Upload blog post image */}
-            <label htmlFor='image' className='block  font-semibold lg:text-xl'>
+            <label htmlFor='image' className='block font-semibold lg:text-xl'>
                 Upload Blog Post Image
             </label>
-            <div className=" h-1/2 flex justify-between gap-2 items-center border border-blue-700 py-2 px-3 rounded-xl md:h-fit">
+            <div className="h-1/2 flex justify-between gap-2 items-center border border-blue-700 py-2 px-3 rounded-xl md:h-fit">
                 {/* Hidden input for file selection */}
                 <input
                     {...register('image')}
@@ -68,7 +68,7 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
             {errors.image && <p className="text-red-500">{errors.image.message}</p>}
 
             {/* Input field for blog title */}
-            <label htmlFor='title' className=' font-semibold lg:text-xl lg:mt-4'>
+            <label htmlFor='title' className='font-semibold lg:text-xl lg:mt-4'>
                 Enter Blog Title
             </label>
             <input
@@ -81,7 +81,7 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
             <p className='text-red-500 h-10 lg:h-16'>{errors.title ? errors.title?.message : ""}</p>
 
             {/* Input field for blog description */}
-            <label htmlFor='description' className=' font-semibold lg:text-xl'>
+            <label htmlFor='description' className='font-semibold lg:text-xl'>
                 Enter Blog Description
             </label>
             <textarea
@@ -93,7 +93,9 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
             {/* Display description input validation error */}
             <p className='text-red-500 h-5'>{errors.description ? errors.description.message : ""}</p>
 
+            {/* Render category list component */}
             <BlogCategoryList setCategoryItem={setCategoryItem} categoryItems={categoryItems} />
+
             {/* Submit button */}
             <button
                 type='submit'
@@ -105,4 +107,5 @@ const BlogForm = ({ setNewBlog, newBlog, onSubmit, statusForm, setCategoryItem, 
         </form>
     );
 };
+
 export default BlogForm;

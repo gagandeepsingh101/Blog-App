@@ -1,3 +1,4 @@
+// Function to filter blogs based on the specified filter type and search query
 import { BlogAPIData } from "./type";
 
 export const useFilterBlog = (filterType: string, allBlogs: BlogAPIData[], searchQuery?: string) => {
@@ -9,12 +10,12 @@ export const useFilterBlog = (filterType: string, allBlogs: BlogAPIData[], searc
     // Search filter
     const filteredBySearch = filterType === "search" && searchQuery
         ? filteredByCategory?.filter(blog =>
-            blog.category.includes(searchQuery) ||
-            blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            blog.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            blog.authorName.toLowerCase().includes(searchQuery.toLowerCase())
+            blog.category.includes(searchQuery) || // Filter by category
+            blog.title.toLowerCase().includes(searchQuery.toLowerCase()) || // Filter by title
+            blog.description.toLowerCase().includes(searchQuery.toLowerCase()) || // Filter by description
+            blog.authorName.toLowerCase().includes(searchQuery.toLowerCase()) // Filter by author name
         )
         : filteredByCategory;
 
     return filteredBySearch;
-}
+};

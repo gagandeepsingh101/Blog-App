@@ -5,6 +5,7 @@ import Header from './components/HeaderComponents/Header'
 import { addUserInfo } from './features/authSlice'
 import { useProfileUserDataQuery } from './services/authApi'
 import { useFormatDate } from './utils/useFormatDate'
+import { Toaster } from 'react-hot-toast'
 // type Props = {}
 
 const App: React.FC = () => {
@@ -22,6 +23,7 @@ const App: React.FC = () => {
   }, [dispatch, formatDate, isSuccessUser, userData])
   return (
     <div className='h-screen w-screen bg-slate-100 overflow-hidden '>
+      <Toaster />
       <Header />
       <Outlet />
     </div>
