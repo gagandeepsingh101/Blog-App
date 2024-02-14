@@ -6,7 +6,7 @@ export const useRandomQuoteGenerator = async (setRandomQuote: Dispatch<SetStateA
     try {
         // Fetch a random quote with the "technology" tag from the Quotable API
         const response = await axios("http://api.quotable.io/quotes/random?tags=technology");
-        console.log(response);
+        // console.log(response);
 
         // Check if the request was successful (status code 200)
         if (response.statusText === "OK") {
@@ -18,6 +18,6 @@ export const useRandomQuoteGenerator = async (setRandomQuote: Dispatch<SetStateA
         }
     } catch (error: any) {
         // Log any errors that occur during the request
-        console.error(error.message);
+        // console.error(error.message);s
     }
 };
