@@ -46,7 +46,7 @@ const Header: React.FC = () => {
         {document.cookie && userInfo ? (
           // If user is authenticated
           <>
-            <button onClick={() => navigate("/createBlog")} type='button' className='text-sm w-2/3 rounded-md border text-blue-500 border-blue-500 text-center hover:bg-blue-500 hover:text-white font-bold transition-all duration-300 ease-in-out focus:outline-none md:w-1/4 lg:w-1/5 lg:text-base'>
+            <button onClick={() => navigate("/createBlog")} type='button' className='text-sm w-2/3 py-1 rounded-md border text-blue-500 border-blue-500 text-center hover:bg-blue-500 hover:text-white font-bold transition-all duration-300 ease-in-out focus:outline-none md:w-1/4 lg:w-1/5 lg:text-base'>
               Create Post
             </button>
             <HeaderMenuBox isOpen={isOpen} setIsOpen={setIsOpen}></HeaderMenuBox>

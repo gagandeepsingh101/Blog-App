@@ -27,8 +27,8 @@ const HeaderMenuBox = ({ isOpen, setIsOpen }: {
                 <FaBookmark className='h-5/6  w-2/3 my-auto md:w-1/2' /> <sup className='font-bold absolute top-0 md:text-lg md:-top-2  -right-1'>{bookMarkData.length}</sup>
             </div>
             {/* Button to toggle menu */}
-            <button onClick={() => setIsOpen(!isOpen)} className='rounded-full  text-blue-500 text-center hover:ring-2 hover:ring-blue-500 transition-all duration-300 ease-in-out  h-fit w-10  lg:w-12'>
-                <img src={image} className='rounded-full ' alt="" />
+            <button onClick={() => setIsOpen(!isOpen)} className='rounded-full  text-blue-500 text-center hover:ring-2 hover:ring-blue-500 transition-all duration-300 ease-in-out  h-8 w-10  lg:w-12'>
+                <img src={image} className='rounded-full h-full w-full ' alt="" />
             </button>
             {/* Menu content */}
             {isOpen && (
