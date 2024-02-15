@@ -8,12 +8,12 @@ export const useAddImageCloud = async (image: File | string) => {
     // Append the image file to the FormData object
     data.append("file", image);
     // Add upload preset and cloud name as required parameters
-    data.append("upload_preset", "t2df2hze");
-    data.append("cloud_name", "blog-site-110");
+    data.append("upload_preset",import.meta.env.VITE_CLOUDINARY_UPLOAD_ASSET);
+    data.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
     try {
         // Send a POST request to Cloudinary API to upload the image
-        const response = await axios.post("https://api.cloudinary.com/v1_1/blog-site-110/image/upload", data);
+        const response = await axios.post("https://api.cloudinary.com/v1_1/"+import.meta.env.VITE_CLOUDINARY_CLOUD_NAME+"/image/upload", data);
         // If the request is successful, return the URL of the uploaded image
         if (response.status === 200) {
             return response.data.url;
