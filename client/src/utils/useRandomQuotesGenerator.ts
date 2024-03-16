@@ -18,6 +18,6 @@ export const useRandomQuoteGenerator = async (setRandomQuote: Dispatch<SetStateA
         }
     } catch (error: any) {
         // Log any errors that occur during the request
-        // console.error(error.message);s
+        // console.error(error.message);
     }
 };

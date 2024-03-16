@@ -20,18 +20,19 @@ const Home: React.FC = () => {
 
     // Generate a random quote on component mount
     const randomQuoteGenerator = useRandomQuoteGenerator;
-    
+
     // Dispatch fetched blog data to Redux store
+
     useEffect(() => {
         if (response && response.success) {
             const { data: blogData } = response as BlogAPIResponse;
             dispatch(addBlogData(blogData as BlogAPIData[]));
-            randomQuoteGenerator(setRandomQuote);
         }
+        randomQuoteGenerator(setRandomQuote);
     }, [dispatch, randomQuoteGenerator, response]);
 
     // Select blog data from Redux store
-    const blogData = useSelector((state: { blog: {blogData:BlogAPIData[]} }) => state.blog.blogData);
+    const blogData = useSelector((state: { blog: { blogData: BlogAPIData[] } }) => state.blog.blogData);
 
     // Memoize date formatting function
     const formatTime = useFormatDate;
